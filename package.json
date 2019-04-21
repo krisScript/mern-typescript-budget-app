@@ -10,6 +10,6 @@
     "install-server": "cd server && yarn install",
     "install-client": "cd client && yarn install",
     "install-stack": "yarn install && yarn install-server && yarn install-client",
-    "start": "concurrently \"cd server &&  yarn start\" \"cd client && yarn start \""
+    "start-dev": "concurrently \"cd server &&  yarn start\" \"cd client && yarn start \""
   }
 }
