@@ -17,6 +17,11 @@ module.exports = {
         pragma: "React",
         version: "detect"
       }
+    
+    },
+    rules: {
+      //Eslint doesn't recognize interfaces as variables
+      'no-undef': 'off'
     },
     parser: "@typescript-eslint/parser"
   }
