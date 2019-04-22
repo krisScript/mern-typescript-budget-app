@@ -5,7 +5,7 @@ class ModalStore {
   @action public setModalState(Component: JSX.Element): void {
     this.modalState = Component;
   }
-  @action public restModalComponent(): void {
+  @action public resetModalState(): void {
     this.modalState = null;
   }
 }
