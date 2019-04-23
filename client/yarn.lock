@@ -3333,7 +3333,7 @@ dom-serializer@0:
     domelementtype "^1.3.0"
     entities "^1.1.1"
 
-dom-testing-library@^3.19.0:
+dom-testing-library@3.19.3, dom-testing-library@^3.19.0:
   version "3.19.3"
   resolved "https://registry.yarnpkg.com/dom-testing-library/-/dom-testing-library-3.19.3.tgz#fba399987be1bdd57b07c4bc3ef46c3c084b26d9"
   integrity sha512-oiI+oq91iO/Vpp+pt8PqfqLfBK074FH0eprhoFNvBCvJOk7vL4ozbe/yj/kEEGR6kiT4F3MAam19AX1fdGFjrA==
@@ -10211,6 +10211,13 @@ use@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
   integrity sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==
+
+user-event@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/user-event/-/user-event-2.0.1.tgz#cb70e358de6ce435baa306a5d7caf41f9ca9afe1"
+  integrity sha512-L/GnWRAVxikEaOrlkPh3ajmz03kqO0EchxLqr1+d3LMh9+bT6DMd/384qctHe8EOnGAPYNiG50/mQP5KGtJSpQ==
+  dependencies:
+    dom-testing-library "3.19.3"
 
 util-deprecate@^1.0.1, util-deprecate@~1.0.1:
   version "1.0.2"

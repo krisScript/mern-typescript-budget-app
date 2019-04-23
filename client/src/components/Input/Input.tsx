@@ -31,7 +31,7 @@ const Input: FunctionComponent<InputProps> = ({
       <label className="label">{name}</label>
       <div className="control">
         <input
-          className={`input ${error ? ' is-danger' : ''}`}
+          className={`input${error ? ' is-danger' : ''}`}
           onChange={e => setValueHook(e.target.value)}
           value={value}
           type={type}
@@ -43,10 +43,3 @@ const Input: FunctionComponent<InputProps> = ({
   );
 };
 export default Input;
-
-// name,
-//   setHook,
-//   placeholder,
-//   value,
-//   type,
-//   setValueHook

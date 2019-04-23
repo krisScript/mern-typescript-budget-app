@@ -43,6 +43,7 @@
     "eslint-plugin-react-hooks": "^1.6.0",
     "node-sass": "^4.11.0",
     "prettier": "^1.17.0",
-    "react-testing-library": "^6.1.2"
+    "react-testing-library": "^6.1.2",
+    "user-event": "^2.0.1"
   }
 }
