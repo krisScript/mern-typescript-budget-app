@@ -1,3 +1,4 @@
+import { createContext } from 'react';
 import { observable, action } from 'mobx';
 import { persist, create } from 'mobx-persist';
 import AuthState from '../../interfaces/AuthState';
@@ -11,5 +12,6 @@ class AuthStore {
     this.authState = defaultAuthState;
   }
 }
-
+const AuthStoreContext = createContext(new AuthStore());
+export { AuthStoreContext };
 export default AuthStore;

@@ -1,3 +1,4 @@
+import { createContext } from 'react';
 import { observable, action } from 'mobx';
 import { persist, create } from 'mobx-persist';
 class ModalStore {
@@ -10,4 +11,6 @@ class ModalStore {
   }
 }
 
+const ModalStoreContext = createContext(new ModalStore());
+export { ModalStoreContext };
 export default ModalStore;
