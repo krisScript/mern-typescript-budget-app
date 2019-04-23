@@ -6,9 +6,12 @@ import jwt from 'jsonwebtoken';
 import validationErrorsIsEmpty from '../util/validationErrorsIsEmpty';
 import ValidationError from '../classes/ValidationError';
 import ValidationErrorType from '../interfaces/ValidationErrorType';
-const secret: any = process.env.SECRET;
 
-export const signUp = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const signUp = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
     validationErrorsIsEmpty(validationResult(req));
     const { email, username, password } = req.body;
@@ -19,7 +22,7 @@ export const signUp = async (req: Request, res: Response, next: NextFunction): P
       username,
     });
     await user.save();
-    res.status(200).json({ message: 'User created!', userId: user._id });
+    res.status(200).json({ message: 'User created!' });
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
@@ -28,8 +31,13 @@ export const signUp = async (req: Request, res: Response, next: NextFunction): P
   }
 };
 
-export const login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const login = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
+    const secret: any = process.env.SECRET;
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
@@ -69,9 +77,26 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
       email,
       username,
     };
-    res.status(200).json({ token: token, userId: user._id.toString(), userData });
+    res
+      .status(200)
+      .json({ token: token, userId: user._id.toString(), userData });
   } catch (err) {
     console.log(err);
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+export const confirmEmail = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const emailSecret: any = process.env.EMAIL_SECRET;
+    const { userId }: any = jwt.verify(req.params.token, emailSecret);
+  } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
     }
