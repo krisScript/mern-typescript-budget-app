@@ -22,7 +22,8 @@ module.exports = {
     rules: {
       //Eslint doesn't recognize interfaces as variables
       'no-undef': 'off',
-      "react/prop-types": 0
+      "react/prop-types": 0,
+      'no-console': 'off',
     },
     parser: "@typescript-eslint/parser"
   }
