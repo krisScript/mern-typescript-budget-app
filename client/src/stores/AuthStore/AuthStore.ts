@@ -3,12 +3,12 @@ import { persist, create } from 'mobx-persist';
 import AuthState from '../../interfaces/AuthState';
 import defaultAuthState from './defaultAuthState';
 class AuthStore {
-  @persist @observable public authstate: AuthState = defaultAuthState;
+  @persist @observable public authState: AuthState = defaultAuthState;
   @action public setAuthState(newAuthState: AuthState): void {
-    this.authstate = newAuthState;
+    this.authState = newAuthState;
   }
   @action public resetAuthState(): void {
-    this.authstate = defaultAuthState;
+    this.authState = defaultAuthState;
   }
 }
 

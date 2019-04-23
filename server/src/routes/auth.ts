@@ -8,7 +8,10 @@ const router = express.Router();
 router.post(
   '/sign-up',
   [
-    body('username', 'Please choose another password. It should be at least 4 characters long.')
+    body(
+      'username',
+      'Please choose another password. It should be at least 4 characters long.',
+    )
       .isLength({ min: 4 })
       .isString()
       .trim()
@@ -16,7 +19,9 @@ router.post(
         (username: string, { req }): Promise<void> => {
           return User.findOne({ username }).then(userDoc => {
             if (userDoc) {
-              return Promise.reject(' Username is already taken. Please try again.');
+              return Promise.reject(
+                ' Username is already taken. Please try again.',
+              );
             }
             return Promise.resolve();
           });
@@ -28,13 +33,18 @@ router.post(
         (email, { req }): Promise<void> => {
           return User.findOne({ email }).then(userDoc => {
             if (userDoc) {
-              return Promise.reject('Email is already used,please user another one');
+              return Promise.reject(
+                'Email is already used,please user another one',
+              );
             }
             return Promise.resolve();
           });
         },
       ),
-    body('password', 'Please choose another password. It should be at least 12 characters long.')
+    body(
+      'password',
+      'Please choose another password. It should be at least 12 characters long.',
+    )
       .isLength({ min: 12 })
       .isAlphanumeric()
       .trim()
@@ -63,13 +73,18 @@ router.post(
         (email, { req }): Promise<void> => {
           return User.findOne({ email }).then(userDoc => {
             if (userDoc) {
-              return Promise.reject('Email is already used,please user another one');
+              return Promise.reject(
+                'Email is already used,please user another one',
+              );
             }
             return Promise.resolve();
           });
         },
       ),
-    body('password', 'Please choose another password. It should be at least 12 characters long.')
+    body(
+      'password',
+      'Please choose another password. It should be at least 12 characters long.',
+    )
       .isLength({ min: 12 })
       .isAlphanumeric()
       .trim()
