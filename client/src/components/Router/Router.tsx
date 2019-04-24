@@ -5,6 +5,7 @@ import Navbar from '../Navbar/Navbar';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 const SignUpForm = lazy(() => import('../SignUpForm/SignUpForm'));
 const HomePage = lazy(() => import('../HomePage/HomePage'));
+const NotFoundPage = lazy(() => import('../NotFoundPage/NotFoundPage'));
 const Router: FunctionComponent = (): JSX.Element => {
   return (
     <BrowserRouter>
@@ -25,6 +26,14 @@ const Router: FunctionComponent = (): JSX.Element => {
             render={(props): JSX.Element => (
               <Suspense fallback={<Loader />}>
                 <HomePage {...props} />
+              </Suspense>
+            )}
+          />
+          <Route
+            exact
+            render={(props): JSX.Element => (
+              <Suspense fallback={<Loader />}>
+                <NotFoundPage {...props} />
               </Suspense>
             )}
           />
