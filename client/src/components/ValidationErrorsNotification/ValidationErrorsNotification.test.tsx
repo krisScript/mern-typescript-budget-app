@@ -1,12 +1,14 @@
 import React from 'react';
 import { render, cleanup, fireEvent, getByTestId } from 'react-testing-library';
 import { BrowserRouter } from 'react-router-dom';
-import ValidationErrorsList from './ValidationErrorsList';
+import ValidationErrorsNotification from './ValidationErrorsNotification';
 
-describe('<ValidationErrorsList />', () => {
-  const validationErrorsMessages = [];
+describe('<ValidationErrorsNotification />', () => {
+  const validationErrorsMessages: string[] = [];
   const { container, rerender, queryByTestId, getByTestId } = render(
-    <ValidationErrorsList validationErrorMessages={validationErrorsMessages} />,
+    <ValidationErrorsNotification
+      validationErrorMessages={validationErrorsMessages}
+    />,
   );
 
   it('snapshot', () => {
@@ -16,7 +18,9 @@ describe('<ValidationErrorsList />', () => {
     const errorsList = queryByTestId('error-list');
     expect(errorsList).toBeNull();
     const newErrorsList = ['Email is already taken!', 'Wrong Password!'];
-    rerender(<ValidationErrorsList validationErrorMessages={newErrorsList} />);
+    rerender(
+      <ValidationErrorsNotification validationErrorMessages={newErrorsList} />,
+    );
     const rerenderedErrorsList = getByTestId('error-list');
     expect(rerenderedErrorsList.childElementCount).toBe(2);
   });

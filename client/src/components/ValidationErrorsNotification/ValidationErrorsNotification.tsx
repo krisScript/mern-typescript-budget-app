@@ -6,13 +6,19 @@ const ValidationErrorsNotification: FunctionComponent<
   ValidationErrorsNotificationProps
 > = ({ validationErrorMessages }): JSX.Element => {
   return (
-    <div className="notification is-danger">
-      {validationErrorMessages.map(
-        (errorMessage: string): JSX.Element => (
-          <p key={errorMessage}>{errorMessage}</p>
-        ),
+    <>
+      {validationErrorMessages.length > 0 ? (
+        <div className="notification is-danger">
+          {validationErrorMessages.map(
+            (errorMessage: string): JSX.Element => (
+              <p key={errorMessage}>{errorMessage}</p>
+            ),
+          )}
+        </div>
+      ) : (
+        ''
       )}
-    </div>
+    </>
   );
 };
 export default ValidationErrorsNotification;

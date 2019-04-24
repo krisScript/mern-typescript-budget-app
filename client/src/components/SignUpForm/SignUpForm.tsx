@@ -23,10 +23,7 @@ const SignUpForm: FunctionComponent<RouteComponentProps> = (): JSX.Element => {
         password,
         matchPassword,
       });
-
-      console.log(response);
     } catch (err) {
-      console.log(err.response.data);
       toggleValidationErrors(err.response.data.data);
     }
   };
@@ -34,6 +31,9 @@ const SignUpForm: FunctionComponent<RouteComponentProps> = (): JSX.Element => {
     <div className="columns">
       <div className="column is-one-third" />
       <div className="column is-one-third">
+        <ValidationErrorsNotification
+          validationErrorMessages={validationErrorMessages}
+        />
         <form className="box" onSubmit={submitHandler}>
           <Input
             name="username"
