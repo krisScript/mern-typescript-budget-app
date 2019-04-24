@@ -28,7 +28,7 @@ const Input: FunctionComponent<InputProps> = ({
   ]);
   return (
     <div className="field">
-      <label className="label">{name}</label>
+      <label className="label">{placeholder}</label>
       <div className="control">
         <input
           className={`input${error ? ' is-danger' : ''}`}
