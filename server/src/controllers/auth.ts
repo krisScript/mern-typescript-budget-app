@@ -42,8 +42,8 @@ export const signUp = async (
     await user.save();
     res.status(200).json({ message: 'User created!' });
   } catch (err) {
-    if (!err.statusCode) {
-      err.statusCode = 500;
+    if (!err.status) {
+      err.status = 500;
     }
     next(err);
   }
@@ -75,6 +75,16 @@ export const login = async (
         param: 'password',
         msg: 'Password does not match!',
         value: password,
+      };
+      const validationError = new ValidationError([validationErrorObj], 403);
+      throw validationError;
+    }
+    if (!user.confirmed) {
+      const validationErrorObj: ValidationErrorType = {
+        location: 'body',
+        param: 'none',
+        msg: 'Please confirm your email!',
+        value: '',
       };
       const validationError = new ValidationError([validationErrorObj], 403);
       throw validationError;

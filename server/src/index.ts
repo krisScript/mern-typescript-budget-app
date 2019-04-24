@@ -3,6 +3,8 @@ import { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import mongoose, { Error } from 'mongoose';
 import authRoutes from './routes/auth';
+import ValidationError from './classes/ValidationError';
+import ValiadtionErrorType from './interfaces/ValidationErrorType';
 const app = express();
 
 const mongoURI: string = `mongodb+srv://${process.env.MONGO_USER}:${
@@ -24,16 +26,18 @@ app.use(bodyParser.json()),
       next();
     },
   ),
-  app.use(
-    (error: Error, req: Request, res: Response, next: NextFunction): void => {
-      console.log(error);
-      //   res.status(status).json({ data: data });
-    },
-  ),
   app.use('/auth', authRoutes);
-mongoose
-  .connect(mongoURI, { useNewUrlParser: true })
-  .then(result => {
-    app.listen(8080);
-  })
-  .catch(err => console.log(err));
+
+app.use(
+  (error: any, req: Request, res: Response, next: NextFunction): void => {
+    const status = error.status || 500;
+    const { data } = error;
+    res.status(status).json({ data });
+  },
+),
+  mongoose
+    .connect(mongoURI, { useNewUrlParser: true })
+    .then(result => {
+      app.listen(8080);
+    })
+    .catch(err => console.log(err));

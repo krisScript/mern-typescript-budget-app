@@ -2,27 +2,37 @@ import React, { FunctionComponent, useState, SyntheticEvent } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import axios from 'axios';
 import Input from '../Input/Input';
+import ValidationErrorsNotification from '../ValidationErrorsNotification/ValidationErrorsNotification';
+import useValidationErrors from '../../hooks/useValidationErrors/useValidationErrors';
 const SignUpForm: FunctionComponent<RouteComponentProps> = (): JSX.Element => {
+  const {
+    validationErrorMessages,
+    validationErrorParams,
+    toggleValidationErrors,
+  } = useValidationErrors();
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [matchPassword, setMatchPassword] = useState<string>('');
-  const validationErrorParams: string[] = [];
   const submitHandler = async (e: SyntheticEvent): Promise<void> => {
     e.preventDefault();
-    const response = await axios.post('http://localhost:8080/auth/sign-up', {
-      username,
-      email,
-      password,
-      matchPassword,
-    });
+    try {
+      const response = await axios.post('http://localhost:8080/auth/sign-up', {
+        username,
+        email,
+        password,
+        matchPassword,
+      });
 
-    console.log(response);
+      console.log(response);
+    } catch (err) {
+      console.log(err.response.data);
+      toggleValidationErrors(err.response.data.data);
+    }
   };
   return (
     <div className="columns">
       <div className="column is-one-third" />
-
       <div className="column is-one-third">
         <form className="box" onSubmit={submitHandler}>
           <Input
