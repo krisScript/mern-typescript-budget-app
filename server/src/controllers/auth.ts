@@ -15,6 +15,7 @@ export const signUp = async (
   try {
     validationErrorsIsEmpty(validationResult(req));
     const { email, username, password } = req.body;
+    console.log(email, username, password);
     const hashedPassword = await bcrypt.hash(password, 12);
     const user = new User({
       email,

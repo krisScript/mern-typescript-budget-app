@@ -37,6 +37,7 @@ const Input: FunctionComponent<InputProps> = ({
           type={type}
           placeholder={placeholder}
           name={name}
+          required
         />
       </div>
     </div>

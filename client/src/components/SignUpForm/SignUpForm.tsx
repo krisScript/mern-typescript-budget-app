@@ -10,12 +10,13 @@ const SignUpForm: FunctionComponent<RouteComponentProps> = (): JSX.Element => {
   const validationErrorParams: string[] = [];
   const submitHandler = async (e: SyntheticEvent): Promise<void> => {
     e.preventDefault();
-    const response = axios.post('https://localhost:8080/auth/sign-up', {
+    const response = await axios.post('http://localhost:8080/auth/sign-up', {
       username,
       email,
       password,
       matchPassword,
     });
+
     console.log(response);
   };
   return (

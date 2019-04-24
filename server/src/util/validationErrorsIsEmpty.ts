@@ -1,11 +1,13 @@
-const validationErrorsIsEmpty = (validationResult: any) => {
+import ValidationError from '../classes/ValidationError';
+import ValidationErrorType from '../interfaces/ValidationErrorType';
+const validationErrorsIsEmpty = (validationResult: any): never | void => {
   console.log(validationResult, typeof validationResult);
-  // const errors = validationResult;
-  // if (!errors.isEmpty()) {
-  //   const error = new Error();
-  //   error.statusCode = 422;
-  //   error.data = errors.array();
-  //   throw error;
-  // }
+  const errors = validationResult;
+  if (!errors.isEmpty()) {
+    const validationErrors: ValidationErrorType[] = errors.array;
+    const status = 422;
+    const error = new ValidationError(validationErrors, status);
+    throw error;
+  }
 };
 export default validationErrorsIsEmpty;

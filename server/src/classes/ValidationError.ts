@@ -15,11 +15,17 @@ const Errors = {
 };
 
 export class ValidationError extends Error {
-  public response: ValidationErrorType;
+  public response: ValidationErrorType[];
+  public status: number;
 
-  public constructor(error: ValidationErrorType, ...args: any) {
+  public constructor(
+    errors: ValidationErrorType[],
+    status: number,
+    ...args: any
+  ) {
     super(...args);
-    this.response = error;
+    this.response = errors;
+    this.status = status;
   }
 }
 export default ValidationError;
