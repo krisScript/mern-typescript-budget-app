@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React from 'react';
 import { render, fireEvent, waitForElement } from 'react-testing-library';
+import { BrowserRouter } from 'react-router-dom';
 import SignUpForm from './SignUpForm';
 import userEvent from 'user-event';
 describe('<SignUpForm />', () => {
@@ -8,7 +9,13 @@ describe('<SignUpForm />', () => {
   const email = 'test@mail.com';
   const password = '12345678';
   const matchPassword = '87654321';
-  const { getByPlaceholderText, getByValue } = render(<SignUpForm />);
+  const mock: any = jest.fn();
+  const { getByPlaceholderText, getByValue } = render(
+    <SignUpForm match={mock} location={mock} history={mock} />,
+    {
+      wrapper: ({ children }) => <BrowserRouter>{children}</BrowserRouter>,
+    },
+  );
   beforeEach(() => {
     userEvent.type(getByPlaceholderText('Enter your username'), username);
     userEvent.type(getByPlaceholderText('Enter your email'), email);

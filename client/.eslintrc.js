@@ -24,6 +24,7 @@ module.exports = {
       'no-undef': 'off',
       "react/prop-types": 0,
       'no-console': 'off',
+      "react/display-name":"off"
     },
     parser: "@typescript-eslint/parser"
   }

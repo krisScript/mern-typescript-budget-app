@@ -2,7 +2,8 @@ import React, { FunctionComponent, lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 import Loader from '../../Loader';
 import Navbar from '../Navbar/Navbar';
-// const ExpenseForm = lazy(() => import('./ExpenseForm/ExpenseForm'));
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+const SignUpForm = lazy(() => import('../SignUpForm/SignUpForm'));
 // const Home = lazy(() => import('./Home'));
 const Router: FunctionComponent = (): JSX.Element => {
   return (
@@ -10,7 +11,16 @@ const Router: FunctionComponent = (): JSX.Element => {
       <>
         <Navbar />
         <div className="main-container">
-          <Switch />
+          <Switch>
+            <Route
+              path="/sign-up"
+              render={(props): JSX.Element => (
+                <Suspense fallback={<Loader />}>
+                  <SignUpForm {...props} />
+                </Suspense>
+              )}
+            />
+          </Switch>
         </div>
       </>
     </BrowserRouter>

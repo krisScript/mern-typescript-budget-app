@@ -1,8 +1,8 @@
 import React, { FunctionComponent, useState, SyntheticEvent } from 'react';
-import { NavLink } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import axios from 'axios';
 import Input from '../Input/Input';
-const SignUpForm: FunctionComponent = (): JSX.Element => {
+const SignUpForm: FunctionComponent<RouteComponentProps> = (): JSX.Element => {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
