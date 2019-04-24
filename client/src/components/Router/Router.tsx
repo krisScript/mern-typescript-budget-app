@@ -7,6 +7,9 @@ const SignUpForm = lazy(() => import('../SignUpForm/SignUpForm'));
 const LoginForm = lazy(() => import('../LoginForm/LoginForm'));
 const HomePage = lazy(() => import('../HomePage/HomePage'));
 const NotFoundPage = lazy(() => import('../NotFoundPage/NotFoundPage'));
+const EmailConfirmationPage = lazy(() =>
+  import('../EmailConfirmationPage/EmailConfirmationPage'),
+);
 const Router: FunctionComponent = (): JSX.Element => {
   return (
     <BrowserRouter>
@@ -18,6 +21,14 @@ const Router: FunctionComponent = (): JSX.Element => {
             render={(props): JSX.Element => (
               <Suspense fallback={<Loader />}>
                 <LoginForm {...props} />
+              </Suspense>
+            )}
+          />
+          <Route
+            path="/auth/confirmation/:token"
+            render={(props): JSX.Element => (
+              <Suspense fallback={<Loader />}>
+                <EmailConfirmationPage {...props} />
               </Suspense>
             )}
           />

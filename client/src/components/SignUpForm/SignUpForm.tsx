@@ -1,10 +1,12 @@
 import React, { FunctionComponent, useState, SyntheticEvent } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Input from '../Input/Input';
 import ValidationErrorsNotification from '../ValidationErrorsNotification/ValidationErrorsNotification';
 import useValidationErrors from '../../hooks/useValidationErrors/useValidationErrors';
-const SignUpForm: FunctionComponent<RouteComponentProps> = (): JSX.Element => {
+const SignUpForm: FunctionComponent<RouteComponentProps> = ({
+  history,
+}): JSX.Element => {
   const {
     validationErrorMessages,
     validationErrorParams,
@@ -23,6 +25,7 @@ const SignUpForm: FunctionComponent<RouteComponentProps> = (): JSX.Element => {
         password,
         matchPassword,
       });
+      history.replace('/login');
     } catch (err) {
       toggleValidationErrors(err.response.data.data);
     }
@@ -82,4 +85,4 @@ const SignUpForm: FunctionComponent<RouteComponentProps> = (): JSX.Element => {
   );
 };
 
-export default SignUpForm;
+export default withRouter(SignUpForm);

@@ -32,13 +32,14 @@ export const signUp = async (
       { expiresIn: '1h' },
     );
     const appEmail: any = process.env.EMAIL;
-    const url = `http://localhost:8080/auth/cofirmation/${token}`;
+    const url = `http://localhost:3000/auth/cofirmation/${token}`;
     const mailOptions: MailOptions = {
       from: appEmail,
       to: email,
       subject: 'Email confirmation.',
       html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
     };
+    sendEmail(mailOptions);
     await user.save();
     res.status(200).json({ message: 'User created!' });
   } catch (err) {

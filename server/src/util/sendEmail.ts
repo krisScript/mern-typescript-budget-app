@@ -3,6 +3,7 @@ import MailOptions from '../interfaces/MailOptions';
 const sendEmail = (mailOptions: MailOptions): void => {
   const email: any = process.env.EMAIL;
   const emailPassword: any = process.env.EMAIL_PASSWORD;
+  console.log(email === 'bestestkris@gmail.com', email, emailPassword);
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
