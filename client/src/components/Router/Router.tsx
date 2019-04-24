@@ -4,6 +4,7 @@ import Loader from '../../Loader';
 import Navbar from '../Navbar/Navbar';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 const SignUpForm = lazy(() => import('../SignUpForm/SignUpForm'));
+const LoginForm = lazy(() => import('../LoginForm/LoginForm'));
 const HomePage = lazy(() => import('../HomePage/HomePage'));
 const NotFoundPage = lazy(() => import('../NotFoundPage/NotFoundPage'));
 const Router: FunctionComponent = (): JSX.Element => {
@@ -12,6 +13,14 @@ const Router: FunctionComponent = (): JSX.Element => {
       <>
         <Navbar />
         <Switch>
+          <Route
+            path="/login"
+            render={(props): JSX.Element => (
+              <Suspense fallback={<Loader />}>
+                <LoginForm {...props} />
+              </Suspense>
+            )}
+          />
           <Route
             path="/sign-up"
             render={(props): JSX.Element => (

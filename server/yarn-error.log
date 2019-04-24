@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @types/nodemailer
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js start
 
 PATH: 
-  C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\PC\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Program Files (x86)\Yarn\bin;C:\Users\PC\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Users\PC\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\PC\AppData\Roaming\npm;C:\Users\PC\AppData\Local\Yarn\bin;C:\Users\PC\AppData\Local\Programs\Microsoft VS Code Insiders\bin
+  C:\Users\PC\AppData\Local\Temp\yarn--1556107133474-0.8162722666186939;C:\Users\PC\Desktop\typescript-mern-budget-app\node_modules\.bin;C:\Users\PC\AppData\Local\Yarn\Data\link\node_modules\.bin;C:\Users\PC\Desktop\typescript-mern-budget-app\node_modules\.bin;C:\Users\PC\AppData\Local\Yarn\Data\link\node_modules\.bin;C:\Program Files\libexec\lib\node_modules\npm\bin\node-gyp-bin;C:\Program Files\lib\node_modules\npm\bin\node-gyp-bin;C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\PC\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Program Files (x86)\Yarn\bin;C:\Users\PC\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Users\PC\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\PC\AppData\Roaming\npm;C:\Users\PC\AppData\Local\Yarn\bin;C:\Users\PC\AppData\Local\Programs\Microsoft VS Code Insiders\bin
 
 Yarn version: 
   1.13.0
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  SyntaxError: C:\Users\PC\Desktop\typescript-mern-budget-app\server\package.json: Unexpected token } in JSON at position 934
+  SyntaxError: C:\Users\PC\Desktop\typescript-mern-budget-app\server\package.json: Unexpected token } in JSON at position 969
       at JSON.parse (<anonymous>)
       at C:\Program Files (x86)\Yarn\lib\cli.js:1625:59
       at Generator.next (<anonymous>)
@@ -47,6 +47,7 @@ npm manifest:
       "typescript": "^3.4.3"
     },
     "dependencies": {
+      "@types/nodemailer": "^4.6.7",
       "bcryptjs": "^2.4.3",
       "body-parser": "^1.18.3",
       "express": "^4.16.4",

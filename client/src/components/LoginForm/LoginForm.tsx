@@ -2,21 +2,16 @@ import React, { FunctionComponent, useState, SyntheticEvent } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import axios from 'axios';
 import Input from '../Input/Input';
-const SignUpForm: FunctionComponent<RouteComponentProps> = (): JSX.Element => {
-  const [username, setUsername] = useState<string>('');
+const LoginForm: FunctionComponent<RouteComponentProps> = (): JSX.Element => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [matchPassword, setMatchPassword] = useState<string>('');
   const validationErrorParams: string[] = [];
   const submitHandler = async (e: SyntheticEvent): Promise<void> => {
     e.preventDefault();
-    const response = await axios.post('http://localhost:8080/auth/sign-up', {
-      username,
+    const response = await axios.post('http://localhost:8080/auth/login', {
       email,
       password,
-      matchPassword,
     });
-
     console.log(response);
   };
   return (
@@ -25,14 +20,6 @@ const SignUpForm: FunctionComponent<RouteComponentProps> = (): JSX.Element => {
 
       <div className="column is-one-third">
         <form className="box" onSubmit={submitHandler}>
-          <Input
-            name="username"
-            value={username}
-            setValueHook={setUsername}
-            type="text"
-            placeholder="Enter your username"
-            validationErrorParams={validationErrorParams}
-          />
           <Input
             name="email"
             value={email}
@@ -49,20 +36,12 @@ const SignUpForm: FunctionComponent<RouteComponentProps> = (): JSX.Element => {
             placeholder="Enter your password"
             validationErrorParams={validationErrorParams}
           />
-          <Input
-            name="matchPassword"
-            value={matchPassword}
-            setValueHook={setMatchPassword}
-            type="password"
-            placeholder="Repeat your password"
-            validationErrorParams={validationErrorParams}
-          />
           <div className="field is-grouped">
             <div className="control">
-              <button className="button is-link">Sign Up</button>
+              <button className="button is-link">Login</button>
             </div>
             <div className="control">
-              <button className="button is-text">Cancel</button>
+              <button className="button is-text">Forgot your password?</button>
             </div>
           </div>
         </form>
@@ -72,4 +51,4 @@ const SignUpForm: FunctionComponent<RouteComponentProps> = (): JSX.Element => {
   );
 };
 
-export default SignUpForm;
+export default LoginForm;
