@@ -10,11 +10,12 @@ import Input from '../Input/Input';
 import ValidationErrorsNotification from '../ValidationErrorsNotification/ValidationErrorsNotification';
 import useValidationErrors from '../../hooks/useValidationErrors/useValidationErrors';
 import AuthState from '../../interfaces/AuthState';
-import { AuthStoreContext } from '../../stores/AuthStore/AuthStore';
+// import { AuthStoreContext } from '../../stores/AuthStore/AuthStore';
+import RootStoreContext from '../../stores/RootStore/RootStore';
 import { observer } from 'mobx-react-lite';
 const LoginForm: FunctionComponent<RouteComponentProps> = observer(
   (): JSX.Element => {
-    const authStore = useContext(AuthStoreContext);
+    const { authStore } = useContext(RootStoreContext);
     const {
       validationErrorMessages,
       validationErrorParams,
@@ -31,17 +32,21 @@ const LoginForm: FunctionComponent<RouteComponentProps> = observer(
         });
         const { token, user } = response.data;
         console.log(user);
+        const remainingMilliseconds = 10000;
+        const expiryDate = new Date(
+          new Date().getTime() + remainingMilliseconds,
+        ).toISOString();
         const newAuthState: AuthState = {
           token,
           user,
           isAuth: true,
+          expiryDate,
         };
         authStore.setAuthState(newAuthState);
       } catch (err) {
-        console.log(err);
-        // if (err) {
-        //   toggleValidationErrors(err.response.data.data);
-        // }
+        if (err) {
+          toggleValidationErrors(err.response.data.data);
+        }
       }
     };
     return (

@@ -3,8 +3,9 @@ import { observable, action } from 'mobx';
 import { persist, create } from 'mobx-persist';
 import AuthState from '../../interfaces/AuthState';
 import defaultAuthState from './defaultAuthState';
+
 class AuthStore {
-  @persist @observable public authState: AuthState = defaultAuthState;
+  @persist('object') @observable public authState: AuthState = defaultAuthState;
   @action public setAuthState(newAuthState: AuthState): void {
     console.log('setAuthState', newAuthState);
     this.authState = newAuthState;
@@ -12,7 +13,11 @@ class AuthStore {
   @action public resetAuthState(): void {
     this.authState = defaultAuthState;
   }
+  // public constructor() {
+  //   setTimeout(() => {
+  //     this.resetAuthState();
+  //     console.log(this.authState.isAuth);
+  //   }, Number(this.authState.expiryDate));
+  // }
 }
-const AuthStoreContext = createContext(new AuthStore());
-export { AuthStoreContext };
 export default AuthStore;

@@ -2,18 +2,18 @@ import React, { FunctionComponent, Suspense, useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import Loader from '../Loader';
 import { observer } from 'mobx-react-lite';
-import { AuthStoreContext } from '../../stores/AuthStore/AuthStore';
+import RootStoreContext from '../../stores/RootStore/RootStore';
 interface ProtectedRouteProps {
   Component: FunctionComponent;
 }
 const ProtectedRoute: FunctionComponent<ProtectedRouteProps> = observer(
   ({ Component, ...rest }): JSX.Element => {
-    const { isAuth } = useContext(AuthStoreContext).authState;
+    const { authStore } = useContext(RootStoreContext);
     return (
       <Route
         {...rest}
         render={props => {
-          if (isAuth) {
+          if (authStore.authState.isAuth) {
             return (
               <Suspense fallback={<Loader />}>
                 <Component />
