@@ -46,6 +46,9 @@ const LoginForm: FunctionComponent<RouteComponentProps> = observer(
       } catch (err) {
         if (err) {
           toggleValidationErrors(err.response.data.data);
+          if (err.response.data.data[0].param === 'confirmed') {
+            console.log('nani');
+          }
         }
       }
     };

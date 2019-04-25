@@ -69,7 +69,7 @@ export const login = async (
     if (!user.confirmed) {
       const validationErrorObj: ValidationErrorType = {
         location: 'body',
-        param: '',
+        param: 'confirmed',
         msg: 'Please confirm your email!',
         value: '',
       };

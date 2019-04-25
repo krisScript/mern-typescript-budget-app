@@ -1,15 +1,16 @@
 import { create } from 'mobx-persist';
 import { createContext } from 'react';
 import AuthStore from '../AuthStore/AuthStore';
-
+import ModalStore from '../ModalStore/ModalStore';
 const hydrate = create({
   storage: localStorage,
   jsonify: true,
 });
 class RootStore {
   public authStore = new AuthStore();
+  public modalStore = new ModalStore();
   public constructor() {
-    const hydratedAuthStore = hydrate('authStore', this.authStore);
+    hydrate('authStore', this.authStore);
   }
 }
 

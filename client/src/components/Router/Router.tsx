@@ -2,6 +2,7 @@ import React, { FunctionComponent, lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 import Loader from '../../Loader';
 import Navbar from '../Navbar/Navbar';
+import Modal from '../Modal/Modal';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 const SignUpForm = lazy(() => import('../SignUpForm/SignUpForm'));
 const LoginForm = lazy(() => import('../LoginForm/LoginForm'));
@@ -15,6 +16,7 @@ const Router: FunctionComponent = (): JSX.Element => {
     <BrowserRouter>
       <>
         <Navbar />
+        <Modal />
         <Switch>
           <Route
             path="/login"
