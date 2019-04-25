@@ -9,6 +9,7 @@ import ValidationErrorType from '../interfaces/ValidationErrorType';
 import NotFoundError from '../classes/NotFoundError';
 import MailOptions from '../interfaces/MailOptions';
 import sendEmail from '../util/sendEmail';
+import sendEmailConfirmation from '../util/sendEmailConfirmation';
 export const signUp = async (
   req: Request,
   res: Response,
@@ -23,25 +24,8 @@ export const signUp = async (
       password: hashedPassword,
       username,
     });
-    const emailSecret: any = process.env.EMAIL_SECRET;
-    const userId = user._id;
-    const token = jwt.sign(
-      {
-        email,
-        userId,
-      },
-      emailSecret,
-      { expiresIn: '1h' },
-    );
-    const appEmail: any = process.env.EMAIL;
-    const url = `http://localhost:3000/auth/confirmation/${token}`;
-    const mailOptions: MailOptions = {
-      from: appEmail,
-      to: email,
-      subject: 'Email confirmation.',
-      html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
-    };
-    sendEmail(mailOptions);
+    const userId = user._id.toString();
+    sendEmailConfirmation(userId, email);
     await user.save();
     res.status(200).json({ message: 'User created!' });
   } catch (err) {
@@ -145,6 +129,21 @@ export const confirmEmail = async (
     res.status(200).json({
       confirmed: true,
     });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+export const requestEmailConfirmation = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const { userId, email } = req.body;
+    sendEmailConfirmation(userId, email);
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;

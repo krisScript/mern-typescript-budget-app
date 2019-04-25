@@ -3,8 +3,6 @@ import { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import mongoose, { Error } from 'mongoose';
 import authRoutes from './routes/auth';
-import ValidationError from './classes/ValidationError';
-import ValiadtionErrorType from './interfaces/ValidationErrorType';
 const app = express();
 
 const mongoURI: string = `mongodb+srv://${process.env.MONGO_USER}:${

@@ -2,7 +2,12 @@ import express from 'express';
 import { body } from 'express-validator/check';
 import User from '../models/User';
 
-import { login, signUp, confirmEmail } from '../controllers/auth';
+import {
+  login,
+  signUp,
+  confirmEmail,
+  requestEmailConfirmation,
+} from '../controllers/auth';
 const router = express.Router();
 
 router.post(
@@ -93,4 +98,5 @@ router.post(
   login,
 );
 router.post('/confirmation/:token', confirmEmail);
+router.post('request/confirmation', requestEmailConfirmation);
 export default router;
