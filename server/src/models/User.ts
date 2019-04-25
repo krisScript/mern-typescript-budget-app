@@ -7,4 +7,8 @@ const UserSchema: Schema = new Schema({
   username: { type: String, required: true },
   confirmed: { type: Boolean, default: false },
 });
+UserSchema.methods.confirm = function(): void {
+  this.confirmed = true;
+  this.save();
+};
 export default mongoose.model<User>('User', UserSchema);

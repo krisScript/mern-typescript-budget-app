@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import isValidationErrorsEmpty from '../util/isValidationErrorsEmpty';
 import ValidationError from '../classes/ValidationError';
 import ValidationErrorType from '../interfaces/ValidationErrorType';
+import NotFoundError from '../classes/NotFoundError';
 import MailOptions from '../interfaces/MailOptions';
 import sendEmail from '../util/sendEmail';
 export const signUp = async (
@@ -23,16 +24,17 @@ export const signUp = async (
       username,
     });
     const emailSecret: any = process.env.EMAIL_SECRET;
+    const userId = user._id;
     const token = jwt.sign(
       {
         email,
-        username,
+        userId,
       },
       emailSecret,
       { expiresIn: '1h' },
     );
     const appEmail: any = process.env.EMAIL;
-    const url = `http://localhost:3000/auth/cofirmation/${token}`;
+    const url = `http://localhost:3000/auth/confirmation/${token}`;
     const mailOptions: MailOptions = {
       from: appEmail,
       to: email,
@@ -121,8 +123,20 @@ export const confirmEmail = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
+    const { token } = req.params;
+    console.log(token);
     const emailSecret: any = process.env.EMAIL_SECRET;
-    const { userId }: any = jwt.verify(req.params.token, emailSecret);
+    const { userId }: any = jwt.verify(token, emailSecret);
+    const user = await User.findById(userId);
+    if (!user) {
+      const error = new NotFoundError('User not found!', 404);
+      throw error;
+    }
+    console.log(user);
+    await user.confirm();
+    res.status(200).json({
+      confirmed: true,
+    });
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;

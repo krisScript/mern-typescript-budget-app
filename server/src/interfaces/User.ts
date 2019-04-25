@@ -4,5 +4,6 @@ interface User extends Document {
   password: string;
   username: string;
   confirmed: boolean;
+  confirm: () => void;
 }
 export default User;

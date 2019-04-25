@@ -1,9 +1,30 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-const EmailConfirmationPage: FunctionComponent<RouteComponentProps> = (
-  props,
-): JSX.Element => {
-  console.log(props);
+import axios, { AxiosResponse, AxiosError } from 'axios';
+interface MatchParams {
+  token: string;
+}
+
+const EmailConfirmationPage: FunctionComponent<
+  RouteComponentProps<MatchParams>
+> = ({ match }): JSX.Element => {
+  useEffect((): void => {
+    const { token } = match.params;
+    console.log(token);
+    axios
+      .post(`http://localhost:8080/auth/confirmation/${token}`)
+      .then(
+        (response: AxiosResponse): void => {
+          console.log(response);
+        },
+      )
+      .catch(
+        (error: AxiosError): void => {
+          console.log(error);
+        },
+      );
+  }, []);
+
   return (
     <div className="columns">
       <div className="column is-one-third" />
