@@ -105,10 +105,9 @@ export const login = async (
     const userData = {
       email,
       username,
+      userId: user._id.toString(),
     };
-    res
-      .status(200)
-      .json({ token: token, userId: user._id.toString(), userData });
+    res.status(200).json({ token, user: userData });
   } catch (err) {
     console.log(err);
     if (!err.statusCode) {
@@ -136,7 +135,6 @@ export const confirmEmail = async (
         }
       },
     );
-    console.log(userId);
     const user = await User.findById(userId);
     console.log(user);
     if (!user) {

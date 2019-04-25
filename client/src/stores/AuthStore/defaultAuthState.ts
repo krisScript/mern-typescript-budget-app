@@ -3,6 +3,7 @@ const defaultAuthState: AuthState = {
   isAuth: false,
   token: '',
   user: {
+    userId: '',
     username: '',
     email: '',
   },

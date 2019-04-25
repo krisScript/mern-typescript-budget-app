@@ -6,6 +6,7 @@ import defaultAuthState from './defaultAuthState';
 class AuthStore {
   @persist @observable public authState: AuthState = defaultAuthState;
   @action public setAuthState(newAuthState: AuthState): void {
+    console.log('setAuthState', newAuthState);
     this.authState = newAuthState;
   }
   @action public resetAuthState(): void {
