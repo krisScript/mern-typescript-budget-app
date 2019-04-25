@@ -31,6 +31,7 @@ app.use(bodyParser.json()),
 app.use(
   (error: any, req: Request, res: Response, next: NextFunction): void => {
     const status = error.status || 500;
+    console.log(error);
     if (error.data) {
       const { data } = error;
       res.status(status).json({ data });

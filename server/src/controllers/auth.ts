@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator/check';
 import bcrypt from 'bcryptjs';
 import User from '../models/User';
-import jwt from 'jsonwebtoken';
+import jwt, { JsonWebTokenError } from 'jsonwebtoken';
 import isValidationErrorsEmpty from '../util/isValidationErrorsEmpty';
 import ValidationError from '../classes/ValidationError';
 import ValidationErrorType from '../interfaces/ValidationErrorType';
@@ -85,7 +85,7 @@ export const login = async (
     if (!user.confirmed) {
       const validationErrorObj: ValidationErrorType = {
         location: 'body',
-        param: 'none',
+        param: '',
         msg: 'Please confirm your email!',
         value: '',
       };
@@ -124,15 +124,25 @@ export const confirmEmail = async (
 ): Promise<void> => {
   try {
     const { token } = req.params;
-    console.log(token);
     const emailSecret: any = process.env.EMAIL_SECRET;
-    const { userId }: any = jwt.verify(token, emailSecret);
+    const { userId }: any = jwt.verify(
+      token,
+      emailSecret,
+      (err: any, decoded: any) => {
+        if (err) {
+          throw new Error(err.message);
+        } else {
+          return decoded;
+        }
+      },
+    );
+    console.log(userId);
     const user = await User.findById(userId);
+    console.log(user);
     if (!user) {
       const error = new NotFoundError('User not found!', 404);
       throw error;
     }
-    console.log(user);
     await user.confirm();
     res.status(200).json({
       confirmed: true,
