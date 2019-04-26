@@ -99,4 +99,7 @@ router.post(
 );
 router.post('/confirmation/:token', confirmEmail);
 router.post('request/confirmation', requestEmailConfirmation);
+router.post('/test', (req, rest, next) =>
+  rest.status(200).json({ test: 'nani' }),
+);
 export default router;

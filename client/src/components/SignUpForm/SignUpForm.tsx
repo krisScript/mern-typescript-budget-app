@@ -27,7 +27,10 @@ const SignUpForm: FunctionComponent<RouteComponentProps> = ({
       });
       history.replace('/login');
     } catch (err) {
-      toggleValidationErrors(err.response.data.data);
+      console.log(err);
+      // if (err.response.data) {
+      //   toggleValidationErrors(err.response.data.data);
+      // }
     }
   };
   return (

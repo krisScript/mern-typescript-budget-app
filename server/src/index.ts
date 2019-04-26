@@ -42,6 +42,6 @@ app.use(
   mongoose
     .connect(mongoURI, { useNewUrlParser: true })
     .then(result => {
-      app.listen(8070);
+      app.listen(8080);
     })
     .catch(err => console.log(err));

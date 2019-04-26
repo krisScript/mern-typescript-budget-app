@@ -5,8 +5,8 @@ import User from '../models/User';
 import jwt, { JsonWebTokenError } from 'jsonwebtoken';
 import isValidationErrorsEmpty from '../util/isValidationErrorsEmpty';
 import ValidationError from '../classes/ValidationError';
+import CustomError from '../classes/CustomError';
 import ValidationErrorType from '../interfaces/ValidationErrorType';
-import NotFoundError from '../classes/NotFoundError';
 import MailOptions from '../interfaces/MailOptions';
 import sendEmail from '../util/sendEmail';
 import sendEmailConfirmation from '../util/sendEmailConfirmation';
@@ -52,7 +52,9 @@ export const login = async (
         msg: 'User with this email does not exist!',
         value: email,
       };
-      const validationError = new ValidationError([validationErrorObj], 404);
+      const validationError = new ValidationError('Validation Errpr', 403, [
+        validationErrorObj,
+      ]);
       throw validationError;
     }
     const passwordMatch = await bcrypt.compare(password, user.password);
@@ -63,7 +65,9 @@ export const login = async (
         msg: 'Password does not match!',
         value: password,
       };
-      const validationError = new ValidationError([validationErrorObj], 403);
+      const validationError = new ValidationError('Validation Errpr', 403, [
+        validationErrorObj,
+      ]);
       throw validationError;
     }
     if (!user.confirmed) {
@@ -73,7 +77,9 @@ export const login = async (
         msg: 'Please confirm your email!',
         value: '',
       };
-      const validationError = new ValidationError([validationErrorObj], 403);
+      const validationError = new ValidationError('Validation Errpr', 403, [
+        validationErrorObj,
+      ]);
       throw validationError;
     }
     const token = jwt.sign(
@@ -113,7 +119,7 @@ export const confirmEmail = async (
       emailSecret,
       (err: any, decoded: any) => {
         if (err) {
-          throw new Error(err.message);
+          throw new CustomError(err.message, 401);
         } else {
           return decoded;
         }
@@ -122,7 +128,7 @@ export const confirmEmail = async (
     const user = await User.findById(userId);
     console.log(user);
     if (!user) {
-      const error = new NotFoundError('User not found!', 404);
+      const error = new CustomError('User not found!', 404);
       throw error;
     }
     await user.confirm();
@@ -142,7 +148,12 @@ export const requestEmailConfirmation = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const { userId, email } = req.body;
+    const { userId } = req.body;
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error();
+    }
+    const { email } = user;
     sendEmailConfirmation(userId, email);
   } catch (err) {
     if (!err.statusCode) {

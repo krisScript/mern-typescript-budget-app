@@ -1,12 +1,14 @@
 import ValidationErrorType from '../interfaces/ValidationErrorType';
-export class ValidationError extends Error {
+import CustomError from './CustomError';
+class ValidationError extends CustomError {
   public data: ValidationErrorType[];
-  public status: number;
-
-  public constructor(errors: ValidationErrorType[], status: number) {
-    super();
+  public constructor(
+    message: string,
+    status: number,
+    errors: ValidationErrorType[],
+  ) {
+    super(message, status);
     this.data = errors;
-    this.status = status;
   }
 }
 export default ValidationError;

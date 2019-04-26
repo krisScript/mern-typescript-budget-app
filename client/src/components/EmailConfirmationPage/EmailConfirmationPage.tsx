@@ -1,7 +1,13 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, {
+  FunctionComponent,
+  useEffect,
+  useState,
+  useContext,
+} from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import Loader from '../Loader';
+import RootStoreContext from '../../stores/RootStore/RootStore';
 interface MatchParams {
   token: string;
 }
@@ -9,6 +15,7 @@ interface MatchParams {
 const EmailConfirmationPage: FunctionComponent<
   RouteComponentProps<MatchParams>
 > = ({ match }): JSX.Element => {
+  const { authStore } = useContext(RootStoreContext);
   const [confirmation, setConfirmation] = useState<boolean>(false);
   const [confirmationFail, setConfirmationFail] = useState<boolean>(false);
   useEffect((): void => {

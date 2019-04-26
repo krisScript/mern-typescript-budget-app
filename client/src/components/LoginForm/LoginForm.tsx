@@ -4,7 +4,7 @@ import React, {
   SyntheticEvent,
   useContext,
 } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Input from '../Input/Input';
 import ValidationErrorsNotification from '../ValidationErrorsNotification/ValidationErrorsNotification';
@@ -14,7 +14,7 @@ import AuthState from '../../interfaces/AuthState';
 import RootStoreContext from '../../stores/RootStore/RootStore';
 import { observer } from 'mobx-react-lite';
 const LoginForm: FunctionComponent<RouteComponentProps> = observer(
-  (): JSX.Element => {
+  ({ history }): JSX.Element => {
     const { authStore } = useContext(RootStoreContext);
     const {
       validationErrorMessages,
@@ -43,12 +43,10 @@ const LoginForm: FunctionComponent<RouteComponentProps> = observer(
           expiryDate,
         };
         authStore.setAuthState(newAuthState);
+        history.replace('/');
       } catch (err) {
         if (err) {
           toggleValidationErrors(err.response.data.data);
-          if (err.response.data.data[0].param === 'confirmed') {
-            console.log('nani');
-          }
         }
       }
     };
@@ -95,4 +93,4 @@ const LoginForm: FunctionComponent<RouteComponentProps> = observer(
   },
 );
 
-export default LoginForm;
+export default withRouter(LoginForm);
