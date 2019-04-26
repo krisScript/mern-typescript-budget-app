@@ -2,14 +2,13 @@ import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator/check';
 import bcrypt from 'bcryptjs';
 import User from '../models/User';
-import jwt, { JsonWebTokenError } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import isValidationErrorsEmpty from '../util/isValidationErrorsEmpty';
 import ValidationError from '../classes/ValidationError';
 import CustomError from '../classes/CustomError';
 import ValidationErrorType from '../interfaces/ValidationErrorType';
-import MailOptions from '../interfaces/MailOptions';
-import sendEmail from '../util/sendEmail';
-import sendEmailConfirmation from '../util/sendEmailConfirmation';
+import sendEmailConfirmation from '../services/sendEmailConfirmation';
+import createUser from '../services/createUser';
 export const signUp = async (
   req: Request,
   res: Response,
@@ -18,15 +17,8 @@ export const signUp = async (
   try {
     isValidationErrorsEmpty(validationResult(req));
     const { email, username, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 12);
-    const user = new User({
-      email,
-      password: hashedPassword,
-      username,
-    });
-    const userId = user._id.toString();
+    const { userId } = await createUser(email, username, password);
     sendEmailConfirmation(userId, email);
-    await user.save();
     res.status(200).json({ message: 'User created!' });
   } catch (err) {
     if (!err.status) {
