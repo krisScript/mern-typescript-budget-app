@@ -7,10 +7,6 @@ import helmet from 'helmet';
 import rateLimiterRedisMiddleware from './middleware/rateLimiterRedisMiddleware';
 const app = express();
 
-const mongoURI: string = `mongodb+srv://${process.env.MONGO_USER}:${
-  process.env.MONGO_PASSWORD
-}@cluster0-zmcyw.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true`;
-
 app.use(helmet);
 app.use(rateLimiterRedisMiddleware);
 app.use(bodyParser.json()),
@@ -42,10 +38,5 @@ app.use(
       res.status(status).json({ msg });
     }
   },
-),
-  mongoose
-    .connect(mongoURI, { useNewUrlParser: true })
-    .then(result => {
-      app.listen(8080);
-    })
-    .catch(err => console.log(err));
+);
+export default app;
