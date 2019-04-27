@@ -13,6 +13,7 @@ import getUserById from '../services/getUserById';
 import getUserByEmail from '../services/getUserByEmail';
 import comparePassword from '../services/comparePassword';
 import checkUserConfirmation from '../services/checkUserConfirmation';
+import signLoginToken from '../services/signLoginToken';
 export const signUp = async (
   req: Request,
   res: Response,
@@ -38,19 +39,11 @@ export const login = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const secret: any = process.env.SECRET;
     const { email, password } = req.body;
     const user = await getUserByEmail(email);
     comparePassword(password, user.password);
     checkUserConfirmation(user);
-    const token = jwt.sign(
-      {
-        email: user.email,
-        userId: user._id.toString(),
-      },
-      secret,
-      { expiresIn: '1h' },
-    );
+    const token = signLoginToken(user);
     const { username } = user;
     const userData = {
       email,
