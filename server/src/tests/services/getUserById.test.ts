@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import getUserByEmail from '../../services/getUserByEmail';
+import getUserById from '../../services/getUserById';
 import User from '../../models/User';
 let mongoServer: any;
 describe('getUserByEmail', (): void => {
@@ -9,7 +9,7 @@ describe('getUserByEmail', (): void => {
   const email = 'test@mail.com';
   const password = 'testPassword';
   const username = 'testUsername';
-
+  let userId: string;
   beforeAll(async () => {
     mongoServer = new MongoMemoryServer();
     const mongoUri = await mongoServer.getConnectionString();
@@ -22,6 +22,7 @@ describe('getUserByEmail', (): void => {
       username,
     });
     await user.save();
+    userId = user._id.toString();
   });
 
   afterAll(async () => {
@@ -30,7 +31,7 @@ describe('getUserByEmail', (): void => {
   });
 
   it('fetching registered user', async (): Promise<void> => {
-    const user = await getUserByEmail(email);
+    const user = await getUserById(userId);
     expect(user).toBeTruthy();
     expect(user.email).toMatch(email);
     expect(user.password).toMatch(password);

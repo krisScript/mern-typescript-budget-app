@@ -12,7 +12,7 @@ const getUserByEmail = async (email: string): Promise<UserType> => {
         msg: 'User with this email does not exist!',
         value: email,
       };
-      const validationError = new ValidationError('Validation Errpr', 403, [
+      const validationError = new ValidationError('Validation Error', 403, [
         validationErrorObj,
       ]);
       throw validationError;
