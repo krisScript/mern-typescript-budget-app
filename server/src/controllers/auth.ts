@@ -11,6 +11,8 @@ import sendEmailConfirmation from '../services/sendEmailConfirmation';
 import createUser from '../services/createUser';
 import getUserById from '../services/getUserById';
 import getUserByEmail from '../services/getUserByEmail';
+import comparePassword from '../services/comparePassword';
+import checkUserConfirmation from '../services/checkUserConfirmation';
 export const signUp = async (
   req: Request,
   res: Response,
@@ -39,31 +41,8 @@ export const login = async (
     const secret: any = process.env.SECRET;
     const { email, password } = req.body;
     const user = await getUserByEmail(email);
-    const passwordMatch = await bcrypt.compare(password, user.password);
-    if (!passwordMatch) {
-      const validationErrorObj: ValidationErrorType = {
-        location: 'body',
-        param: 'password',
-        msg: 'Password does not match!',
-        value: password,
-      };
-      const validationError = new ValidationError('Validation Errpr', 403, [
-        validationErrorObj,
-      ]);
-      throw validationError;
-    }
-    if (!user.confirmed) {
-      const validationErrorObj: ValidationErrorType = {
-        location: 'body',
-        param: 'confirmed',
-        msg: 'Please confirm your email!',
-        value: '',
-      };
-      const validationError = new ValidationError('Validation Errpr', 403, [
-        validationErrorObj,
-      ]);
-      throw validationError;
-    }
+    comparePassword(password, user.password);
+    checkUserConfirmation(user);
     const token = jwt.sign(
       {
         email: user.email,
