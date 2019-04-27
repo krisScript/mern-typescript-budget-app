@@ -7,8 +7,8 @@ import helmet from 'helmet';
 import rateLimiterRedisMiddleware from './middleware/rateLimiterRedisMiddleware';
 const app = express();
 
-app.use(helmet);
-app.use(rateLimiterRedisMiddleware);
+app.use(helmet());
+// app.use(rateLimiterRedisMiddleware);
 app.use(bodyParser.json()),
   app.use(
     (req: Request, res: Response, next: NextFunction): void => {

@@ -36,7 +36,10 @@
   ],
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/babel__core": "^7.1.1",
+    "@types/cookiejar": "^2.1.1",
     "@types/react-router-dom": "^4.3.2",
+    "@types/stack-utils": "^1.0.1",
     "@types/user-event": "^1.4.0",
     "@typescript-eslint/eslint-plugin": "^1.7.0",
     "@typescript-eslint/parser": "^1.7.0",
