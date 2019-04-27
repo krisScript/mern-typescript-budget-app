@@ -8,14 +8,18 @@ const createUser = async (
   username: string,
   password: string,
 ): Promise<CreateUserResponse> => {
-  const hashedPassword = await bcrypt.hash(password, 12);
-  const user = new User({
-    email,
-    password: hashedPassword,
-    username,
-  });
-  const userId = user._id.toString();
-  await user.save();
-  return { userId };
+  try {
+    const hashedPassword = await bcrypt.hash(password, 12);
+    const user = new User({
+      email,
+      password: hashedPassword,
+      username,
+    });
+    const userId = user._id.toString();
+    await user.save();
+    return { userId };
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 export default createUser;

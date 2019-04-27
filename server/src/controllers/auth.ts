@@ -9,6 +9,8 @@ import CustomError from '../classes/CustomError';
 import ValidationErrorType from '../interfaces/ValidationErrorType';
 import sendEmailConfirmation from '../services/sendEmailConfirmation';
 import createUser from '../services/createUser';
+import getUserById from '../services/getUserById';
+import getUserByEmail from '../services/getUserByEmail';
 export const signUp = async (
   req: Request,
   res: Response,
@@ -36,19 +38,7 @@ export const login = async (
   try {
     const secret: any = process.env.SECRET;
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) {
-      const validationErrorObj: ValidationErrorType = {
-        location: 'body',
-        param: 'email',
-        msg: 'User with this email does not exist!',
-        value: email,
-      };
-      const validationError = new ValidationError('Validation Errpr', 403, [
-        validationErrorObj,
-      ]);
-      throw validationError;
-    }
+    const user = await getUserByEmail(email);
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       const validationErrorObj: ValidationErrorType = {
@@ -83,7 +73,6 @@ export const login = async (
       { expiresIn: '1h' },
     );
     const { username } = user;
-
     const userData = {
       email,
       username,
@@ -117,12 +106,7 @@ export const confirmEmail = async (
         }
       },
     );
-    const user = await User.findById(userId);
-    console.log(user);
-    if (!user) {
-      const error = new CustomError('User not found!', 404);
-      throw error;
-    }
+    const user = await getUserById(userId);
     await user.confirm();
     res.status(200).json({
       confirmed: true,
@@ -141,10 +125,7 @@ export const requestEmailConfirmation = async (
 ): Promise<void> => {
   try {
     const { userId } = req.body;
-    const user = await User.findById(userId);
-    if (!user) {
-      throw new Error();
-    }
+    const user = await getUserById(userId);
     const { email } = user;
     sendEmailConfirmation(userId, email);
   } catch (err) {

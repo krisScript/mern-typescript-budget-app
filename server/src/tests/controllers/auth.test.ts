@@ -11,7 +11,7 @@ import { Response, Request, NextFunction } from 'express';
 
 let mongoServer: any;
 
-jest.mock('../../services/createUser');
+// jest.mock('../../services/createUser');
 jest.mock('../../services/sendEmailConfirmation');
 describe('/auth', (): void => {
   let mongoServer: any;
@@ -43,6 +43,7 @@ describe('/auth', (): void => {
           });
 
         expect(response.status).toEqual(200);
+        expect(response.body).toEqual({ message: 'User created!' });
       }, 100000);
     });
   });

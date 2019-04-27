@@ -28,9 +28,9 @@ const SignUpForm: FunctionComponent<RouteComponentProps> = ({
       history.replace('/login');
     } catch (err) {
       console.log(err);
-      // if (err.response.data) {
-      //   toggleValidationErrors(err.response.data.data);
-      // }
+      if (err.response.data) {
+        toggleValidationErrors(err.response.data.data);
+      }
     }
   };
   return (
