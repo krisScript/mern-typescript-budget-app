@@ -37,8 +37,10 @@ describe('getUserByEmail', (): void => {
     expect(user.password).toMatch(password);
     expect(user.username).toMatch(username);
   }, 100000);
-  // it('fetching non registered user', async (): Promise<void> => {
-  //   const notRegisteredEmail = 'some@mail.com';
-  //   expect(await getUserByEmail(notRegisteredEmail)).toThrowError();
-  // }, 100000);
+  it('fetching non registered user', async (): Promise<void> => {
+    const fakeId = 'fakeId';
+    await expect(getUserById(fakeId)).rejects.toThrow(
+      new Error('Validation Error'),
+    );
+  }, 100000);
 });

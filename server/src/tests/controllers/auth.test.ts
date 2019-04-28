@@ -32,7 +32,7 @@ describe('/auth', (): void => {
 
   describe('auth', (): void => {
     describe('/sign-up', (): void => {
-      it('signing up new user', async () => {
+      it('signing up new user', async (): Promise<void> => {
         const response = await request(app)
           .post('/auth/sign-up')
           .send({
@@ -41,8 +41,8 @@ describe('/auth', (): void => {
             password: '123456789123',
             matchPassword: '123456789123',
           });
-
         expect(response.status).toEqual(200);
+        expect(sendEmailConfirmation).toHaveBeenCalledTimes(1);
         expect(response.body).toEqual({ message: 'User created!' });
       }, 100000);
     });

@@ -10,19 +10,21 @@ describe('getUserByEmail', (): void => {
   const password = 'testPassword';
   const username = 'testUsername';
 
-  beforeAll(async () => {
-    mongoServer = new MongoMemoryServer();
-    const mongoUri = await mongoServer.getConnectionString();
-    await mongoose.connect(mongoUri, opts, err => {
-      if (err) console.error(err);
-    });
-    const user = new User({
-      email,
-      password,
-      username,
-    });
-    await user.save();
-  });
+  beforeAll(
+    async (): Promise<void> => {
+      mongoServer = new MongoMemoryServer();
+      const mongoUri = await mongoServer.getConnectionString();
+      await mongoose.connect(mongoUri, opts, err => {
+        if (err) console.error(err);
+      });
+      const user = new User({
+        email,
+        password,
+        username,
+      });
+      await user.save();
+    },
+  );
 
   afterAll(async () => {
     mongoose.disconnect();
@@ -36,8 +38,10 @@ describe('getUserByEmail', (): void => {
     expect(user.password).toMatch(password);
     expect(user.username).toMatch(username);
   }, 100000);
-  // it('fetching non registered user', async (): Promise<void> => {
-  //   const notRegisteredEmail = 'some@mail.com';
-  //   expect(await getUserByEmail(notRegisteredEmail)).toThrowError();
-  // }, 100000);
+  it('fetching non registered user', async (): Promise<void> => {
+    const nonRegisteredEmail = 'nonREgisteredEmail.com';
+    await expect(getUserByEmail(nonRegisteredEmail)).rejects.toThrow(
+      new Error('Error: Validation Error'),
+    );
+  }, 100000);
 });
