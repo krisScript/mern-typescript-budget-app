@@ -3,6 +3,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import createUser from '../../services/createUser';
 import { create } from 'domain';
 let mongoServer: any;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
 describe('createUser', (): void => {
   let mongoServer: any;
   const opts = {}; // remove this option if you use mongoose 5 and above
@@ -10,14 +11,12 @@ describe('createUser', (): void => {
   beforeAll(async () => {
     mongoServer = new MongoMemoryServer();
     const mongoUri = await mongoServer.getConnectionString();
-    await mongoose.connect(mongoUri, opts, err => {
-      if (err) console.error(err);
-    });
+    await mongoose.connect(mongoUri, opts, err => {});
   });
 
   afterAll(async () => {
-    mongoose.disconnect();
     await mongoServer.stop();
+    await mongoose.disconnect();
   });
 
   it('creating user', async (): Promise<void> => {
@@ -27,5 +26,5 @@ describe('createUser', (): void => {
     const { userId } = await createUser(email, username, password);
     expect(userId).toBeTruthy();
     expect(typeof userId).toMatch('string');
-  }, 100000);
+  });
 });

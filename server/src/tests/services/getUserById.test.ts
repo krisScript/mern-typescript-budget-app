@@ -3,6 +3,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import getUserById from '../../services/getUserById';
 import User from '../../models/User';
 let mongoServer: any;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
 describe('getUserByEmail', (): void => {
   let mongoServer: any;
   const opts = {}; // remove this option if you use mongoose 5 and above
@@ -13,9 +14,7 @@ describe('getUserByEmail', (): void => {
   beforeAll(async () => {
     mongoServer = new MongoMemoryServer();
     const mongoUri = await mongoServer.getConnectionString();
-    await mongoose.connect(mongoUri, opts, err => {
-      if (err) console.error(err);
-    });
+    await mongoose.connect(mongoUri, opts, err => {});
     const user = new User({
       email,
       password,
@@ -26,8 +25,8 @@ describe('getUserByEmail', (): void => {
   });
 
   afterAll(async () => {
-    mongoose.disconnect();
     await mongoServer.stop();
+    await mongoose.disconnect();
   });
 
   it('fetching registered user', async (): Promise<void> => {
@@ -36,11 +35,11 @@ describe('getUserByEmail', (): void => {
     expect(user.email).toMatch(email);
     expect(user.password).toMatch(password);
     expect(user.username).toMatch(username);
-  }, 100000);
+  });
   it('fetching non registered user', async (): Promise<void> => {
     const fakeId = 'fakeId';
     await expect(getUserById(fakeId)).rejects.toThrow(
       new Error('Validation Error'),
     );
-  }, 100000);
+  });
 });

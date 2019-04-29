@@ -5,6 +5,8 @@ import ValidationErrorType from '../interfaces/ValidationErrorType';
 import UserType from '../interfaces/User';
 const getUserById = async (userId: string): Promise<UserType> => {
   try {
+    console.log('Here!!!!!!!!');
+    console.log(userId);
     const user = await User.findById(userId);
     if (!user) {
       const error = new CustomError('User not found!', 404);

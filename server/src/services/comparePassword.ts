@@ -20,7 +20,7 @@ const comparePassword = async (
       throw validationError;
     }
   } catch (err) {
-    throw new Error(err);
+    throw err;
   }
 };
 export default comparePassword;

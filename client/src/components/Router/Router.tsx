@@ -18,6 +18,7 @@ const Router: FunctionComponent = (): JSX.Element => {
         <Navbar />
         <Modal />
         <Switch>
+          <ProtectedRoute Component={LoginForm} path={'/protected'} />
           <Route
             path="/login"
             render={(props): JSX.Element => (

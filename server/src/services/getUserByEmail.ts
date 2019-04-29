@@ -19,7 +19,7 @@ const getUserByEmail = async (email: string): Promise<UserType> => {
     }
     return user;
   } catch (err) {
-    throw new Error(err);
+    throw err;
   }
 };
 export default getUserByEmail;

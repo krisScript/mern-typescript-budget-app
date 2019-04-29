@@ -1,4 +1,3 @@
-import bcrypt, { compare } from 'bcryptjs';
 import ValidationError from '../classes/ValidationError';
 import ValidationErrorType from '../interfaces/ValidationErrorType';
 import User from '../interfaces/User';
@@ -17,7 +16,7 @@ const checkUserConfirmation = async (user: User): Promise<void> => {
       throw validationError;
     }
   } catch (err) {
-    throw new Error(err);
+    throw err;
   }
 };
 export default checkUserConfirmation;

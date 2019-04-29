@@ -98,8 +98,5 @@ router.post(
   login,
 );
 router.post('/confirmation/:token', confirmEmail);
-router.post('request/confirmation', requestEmailConfirmation);
-router.post('/test', (req, rest, next) =>
-  rest.status(200).json({ test: 'nani' }),
-);
+router.post('/request-confirmation', requestEmailConfirmation);
 export default router;

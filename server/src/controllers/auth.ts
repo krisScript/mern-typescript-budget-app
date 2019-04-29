@@ -96,10 +96,14 @@ export const requestEmailConfirmation = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const { userId } = req.body;
-    const user = await getUserById(userId);
-    const { email } = user;
-    sendEmailConfirmation(userId, email);
+    // const { userId } = req.body;
+    // console.log(userId);
+    // console.log(getUserById);
+    // const user = await getUserById(userId);
+    // console.log(user);
+    // const { email } = user;
+    // sendEmailConfirmation(userId, email);
+    res.status(200);
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;

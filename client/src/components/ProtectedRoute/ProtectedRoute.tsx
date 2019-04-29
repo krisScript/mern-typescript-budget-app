@@ -5,14 +5,16 @@ import { observer } from 'mobx-react-lite';
 import RootStoreContext from '../../stores/RootStore/RootStore';
 interface ProtectedRouteProps {
   Component: FunctionComponent;
+  path: string;
 }
 const ProtectedRoute: FunctionComponent<ProtectedRouteProps> = observer(
   ({ Component, ...rest }): JSX.Element => {
     const { authStore } = useContext(RootStoreContext);
+    console.log(authStore);
     return (
       <Route
         {...rest}
-        render={props => {
+        render={(props): JSX.Element => {
           if (authStore.authState.isAuth) {
             return (
               <Suspense fallback={<Loader />}>
