@@ -10,7 +10,7 @@ describe('AuthStore', (): void => {
     const newAuthState: AuthState = {
       isAuth: true,
       token: 'token',
-      expiaryDate: '1000',
+      expiryDate: '1000',
       user: {
         username: 'testUser',
         email: 'test@mail.com',

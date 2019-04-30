@@ -8,7 +8,7 @@ const ValidationErrorsNotification: FunctionComponent<
   return (
     <>
       {validationErrorMessages.length > 0 ? (
-        <div className="notification is-danger">
+        <div data-testid="error-list" className="notification is-danger">
           {validationErrorMessages.map(
             (errorMessage: string): JSX.Element => (
               <p key={errorMessage}>{errorMessage}</p>

@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Navbar /> snapshot 1`] = `
+<div>
+  <nav
+    class="navbar "
+  >
+    <div
+      class="navbar-menu is-active"
+    >
+      <a
+        class="navbar-item"
+        href="/add-expense"
+      >
+        Add Expense
+      </a>
+      <a
+        class="navbar-item"
+        href="/expenses"
+      >
+        View Expenses
+      </a>
+      <div
+        class="navbar-end"
+      >
+        <div
+          class="navbar-item"
+        >
+          <div
+            class="buttons"
+          >
+            <a
+              class="button is-primary"
+              data-testid="login"
+              href="/sign-up"
+            >
+              <strong>
+                Sign up
+              </strong>
+            </a>
+            <a
+              class="button is-primary"
+              data-testid="signup"
+              href="/login"
+            >
+              <strong>
+                Login
+              </strong>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+`;

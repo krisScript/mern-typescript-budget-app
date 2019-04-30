@@ -6,7 +6,7 @@ const hydrate = create({
   storage: localStorage,
   jsonify: true,
 });
-class RootStore {
+export class RootStore {
   public authStore = new AuthStore();
   public modalStore = new ModalStore();
   public constructor() {

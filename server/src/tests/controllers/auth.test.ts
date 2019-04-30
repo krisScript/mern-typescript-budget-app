@@ -27,18 +27,51 @@ describe('/auth', (): void => {
   });
 
   describe('/sign-up', (): void => {
+    const username = 'test2UserName';
+    const email = 'testMail@mail.com';
+    const password = '1234567891011';
+    const incorrectPassword = 'aaaaaaaaaaaaaa';
     it('signing up new user', async (): Promise<void> => {
       const response = await request(app)
         .post('/auth/sign-up')
         .send({
-          email: 'bestestkris@gmail.com',
-          username: 'test2UserName',
-          password: '123456789123',
-          matchPassword: '123456789123',
+          email,
+          username,
+          password,
+          matchPassword: password,
         });
       expect(response.status).toEqual(200);
-      expect(sendEmailConfirmation).toHaveBeenCalledTimes(1);
-      expect(response.body).toEqual({ message: 'User created!' });
+      expect(sendEmailConfirmation).toBeCalledTimes(1);
+      expect(response.body).toMatchSnapshot();
+    });
+    it('signing up new user with used email and username', async (): Promise<
+      void
+    > => {
+      const response = await request(app)
+        .post('/auth/sign-up')
+        .send({
+          email,
+          username,
+          password,
+          matchPassword: password,
+        });
+      expect(response.error).toMatchSnapshot();
+      expect(response.status).toEqual(403);
+      expect(response.body).toMatchSnapshot();
+    });
+    it('signing up new user non matching password', async (): Promise<void> => {
+      const response = await request(app)
+        .post('/auth/sign-up')
+        .send({
+          email,
+          username,
+          password,
+          matchPassword: incorrectPassword,
+        });
+      expect(response.error).toMatchSnapshot();
+      expect(response.status).toEqual(403);
+      expect(response.body).toMatchSnapshot();
     });
   });
+  describe('/login', (): void => {});
 });

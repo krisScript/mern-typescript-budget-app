@@ -1,11 +1,16 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React, {
+  FunctionComponent,
+  useContext,
+  useState,
+  useEffect,
+} from 'react';
 import { NavLink } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import RootStoreContext from '../../stores/RootStore/RootStore';
 const Navbar: FunctionComponent = observer(
   (): JSX.Element => {
     const { authStore } = useContext(RootStoreContext);
-    const { isAuth } = authStore.authState;
+    console.log(authStore.authState.user.username, authStore.authState.isAuth);
     return (
       <nav className="navbar ">
         <div className="navbar-menu is-active">
@@ -18,19 +23,28 @@ const Navbar: FunctionComponent = observer(
           <div className="navbar-end">
             <div className="navbar-item">
               <div className="buttons">
-                {isAuth ? (
+                {authStore.authState.isAuth ? (
                   <button
                     onClick={() => authStore.resetAuthState()}
                     className="button is-primary"
+                    data-testid="logout"
                   >
                     Logout
                   </button>
                 ) : (
                   <>
-                    <NavLink to="/sign-up" className="button is-primary">
+                    <NavLink
+                      to="/sign-up"
+                      className="button is-primary"
+                      data-testid="login"
+                    >
                       <strong>Sign up</strong>
                     </NavLink>
-                    <NavLink to="/login" className="button is-primary">
+                    <NavLink
+                      to="/login"
+                      className="button is-primary"
+                      data-testid="signup"
+                    >
                       <strong>Login</strong>
                     </NavLink>
                   </>

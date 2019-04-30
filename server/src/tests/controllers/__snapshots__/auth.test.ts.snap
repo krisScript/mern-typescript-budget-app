@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`/auth /sign-up signing up new user 1`] = `
+Object {
+  "message": "User created!",
+}
+`;
+
+exports[`/auth /sign-up signing up new user non matching password 1`] = `[Error: cannot POST /auth/sign-up (403)]`;
+
+exports[`/auth /sign-up signing up new user non matching password 2`] = `
+Object {
+  "data": Array [
+    Object {
+      "location": "body",
+      "msg": " Username is already taken. Please try again.",
+      "param": "username",
+      "value": "test2UserName",
+    },
+    Object {
+      "location": "body",
+      "msg": "Email is already used,please user another one",
+      "param": "email",
+      "value": "testMail@mail.com",
+    },
+    Object {
+      "location": "body",
+      "msg": "Your passwords do not match.",
+      "param": "matchPassword",
+      "value": "aaaaaaaaaaaaaa",
+    },
+  ],
+}
+`;
+
+exports[`/auth /sign-up signing up new user with used email and username 1`] = `[Error: cannot POST /auth/sign-up (403)]`;
+
+exports[`/auth /sign-up signing up new user with used email and username 2`] = `
+Object {
+  "data": Array [
+    Object {
+      "location": "body",
+      "msg": " Username is already taken. Please try again.",
+      "param": "username",
+      "value": "test2UserName",
+    },
+    Object {
+      "location": "body",
+      "msg": "Email is already used,please user another one",
+      "param": "email",
+      "value": "testMail@mail.com",
+    },
+  ],
+}
+`;

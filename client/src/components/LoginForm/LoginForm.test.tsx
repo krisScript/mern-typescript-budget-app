@@ -8,8 +8,8 @@ describe('<LoginFOrm />', () => {
   const email = 'test@mail.com';
   const password = '12345678';
   const mock: any = jest.fn();
-  const { getByPlaceholderText, getByValue } = render(
-    <LoginForm match={mock} location={mock} history={mock} />,
+  const { getByPlaceholderText, getByValue, getByText } = render(
+    <LoginForm />,
     {
       wrapper: ({ children }) => <BrowserRouter>{children}</BrowserRouter>,
     },
@@ -23,5 +23,9 @@ describe('<LoginFOrm />', () => {
     const passwordInput = await waitForElement(() => getByValue(password));
     expect(emailInput).toBeTruthy();
     expect(passwordInput).toBeTruthy();
+  });
+  it('should call setAuthState onSubmit', (): void => {
+    const submitBtn = getByText('Login');
+    expect(submitBtn).toBeTruthy();
   });
 });
