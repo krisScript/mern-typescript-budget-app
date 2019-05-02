@@ -42,7 +42,7 @@ export const login = async (
     const { email, password } = req.body;
     const user = await getUserByEmail(email);
     comparePassword(password, user.password);
-    checkUserConfirmation(user);
+    await checkUserConfirmation(user);
     const token = signLoginToken(user);
     const { username } = user;
     const userData = {
@@ -52,7 +52,6 @@ export const login = async (
     };
     res.status(200).json({ token, user: userData });
   } catch (err) {
-    console.log(err);
     if (!err.statusCode) {
       err.statusCode = 500;
     }

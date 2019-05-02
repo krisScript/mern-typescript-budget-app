@@ -2,19 +2,6 @@ import React, { createContext } from 'react';
 import { render, cleanup, fireEvent } from 'react-testing-library';
 import { BrowserRouter } from 'react-router-dom';
 import Navbar from './Navbar';
-import { RootStore } from '../../stores/RootStore/RootStore';
-import authenticatedAuthState from '../../stores/AuthStore/authenticatedAuthState';
-const rootStore = new RootStore();
-rootStore.authStore.setAuthState(authenticatedAuthState);
-const Context = createContext(rootStore);
-// , {
-//   wrapper: ({ children }) => (
-//     <BrowserRouter>
-//       <Context.Provider value={rootStore}>{children}</Context.Provider>
-//     </BrowserRouter>
-//   ),
-// }
-
 describe('<Navbar />', (): void => {
   const resetAuthState = jest.fn();
   const { container, rerender, queryByTestId, getByText, getByTestId } = render(

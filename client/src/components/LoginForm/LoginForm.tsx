@@ -46,6 +46,7 @@ const LoginForm: FunctionComponent<RouteComponentProps> = observer(
         history.replace('/');
       } catch (err) {
         if (err) {
+          console.log(err.response.data.data);
           toggleValidationErrors(err.response.data.data);
         }
       }
