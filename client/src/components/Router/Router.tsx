@@ -1,21 +1,26 @@
-import React, { FunctionComponent, lazy, Suspense } from 'react';
+import React, { FunctionComponent, lazy, Suspense,useContext } from 'react';
 import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 import Loader from '../../Loader';
 import Navbar from '../Navbar/Navbar';
 import Modal from '../Modal/Modal';
+import {observer} from 'mobx-react-lite'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import RootStoreContext from '../../stores/RootStore/RootStore';
 const SignUpForm = lazy(() => import('../SignUpForm/SignUpForm'));
 const LoginForm = lazy(() => import('../LoginForm/LoginForm'));
 const HomePage = lazy(() => import('../HomePage/HomePage'));
 const NotFoundPage = lazy(() => import('../NotFoundPage/NotFoundPage'));
+
 const EmailConfirmationPage = lazy(() =>
   import('../EmailConfirmationPage/EmailConfirmationPage'),
 );
-const Router: FunctionComponent = (): JSX.Element => {
+const Router: FunctionComponent = observer((): JSX.Element => {
+  const {authStore} = useContext(RootStoreContext)
+  const {isAuth} = authStore.authState
   return (
     <BrowserRouter>
       <>
-        <Navbar />
+        <Navbar isAuth={isAuth} resetAuthState={authStore.resetAuthState} />
         <Modal />
         <Switch>
           <ProtectedRoute Component={LoginForm} path={'/protected'} />
@@ -64,6 +69,6 @@ const Router: FunctionComponent = (): JSX.Element => {
       </>
     </BrowserRouter>
   );
-};
+})
 
 export default Router;

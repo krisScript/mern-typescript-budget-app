@@ -7,10 +7,12 @@ import React, {
 import { NavLink } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import RootStoreContext from '../../stores/RootStore/RootStore';
-const Navbar: FunctionComponent = observer(
-  (): JSX.Element => {
-    const { authStore } = useContext(RootStoreContext);
-    console.log(authStore.authState.user.username, authStore.authState.isAuth);
+interface NavBarProps {
+  isAuth: boolean;
+  resetAuthState: () => void;
+}
+const Navbar: FunctionComponent<NavBarProps> = observer(
+  ({ isAuth, resetAuthState }): JSX.Element => {
     return (
       <nav className="navbar ">
         <div className="navbar-menu is-active">
@@ -23,9 +25,9 @@ const Navbar: FunctionComponent = observer(
           <div className="navbar-end">
             <div className="navbar-item">
               <div className="buttons">
-                {authStore.authState.isAuth ? (
+                {isAuth ? (
                   <button
-                    onClick={() => authStore.resetAuthState()}
+                    onClick={() => resetAuthState()}
                     className="button is-primary"
                     data-testid="logout"
                   >
