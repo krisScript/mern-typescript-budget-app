@@ -34,3 +34,27 @@ export const addExpense = async (
     next(err);
   }
 };
+
+export const deleteExpense = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const { expenseId } = req.params;
+    const { userId } = req;
+    const expense = await Expense.findById(expenseId);
+    if (!expense) {
+      throw '';
+    }
+    if (expense.userId.toString() === userId) {
+      expense.remove();
+    }
+    res.status(200).json({ msg: 'Expense Deleted' });
+  } catch (err) {
+    if (!err.status) {
+      err.status = 500;
+    }
+    next(err);
+  }
+};

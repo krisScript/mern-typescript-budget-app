@@ -1,8 +1,8 @@
 import express from 'express';
 import { body } from 'express-validator/check';
 import User from '../models/User';
-
-import { addExpense } from '../controllers/expense';
+import isAuth from '../middleware/isAuth';
+import { addExpense, deleteExpense } from '../controllers/expense';
 const router = express.Router();
 
 router.post(
@@ -29,5 +29,5 @@ router.post(
   ],
   addExpense,
 );
-
+router.delete('/delete/expense/:expenseId', isAuth, deleteExpense);
 export default router;

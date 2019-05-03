@@ -3,7 +3,7 @@ import Expense from '../interfaces/Expense';
 
 const ExpenseSchema: Schema = new Schema({
   title: { type: String, required: true },
-  userId: { type: String, required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true },
   description: { type: String, required: true },
   const: { type: Number, required: true },
 });

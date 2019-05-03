@@ -1,13 +1,8 @@
 import { verify } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-import AuthenticatedRequest from '../interfaces/AuthenticatedRequest';
 import DecodedToken from '../interfaces/DecodedToken';
 const secret: any = process.env.SECRET;
-const isAuth = (
-  req: AuthenticatedRequest,
-  res: Response,
-  next: NextFunction,
-): void => {
+const isAuth = (req: Request, res: Response, next: NextFunction): void => {
   const authHeader = req.get('Authorization');
   if (!authHeader) {
     const error = new Error('Not authenticated.');

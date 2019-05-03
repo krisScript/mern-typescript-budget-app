@@ -1,8 +1,9 @@
-import { Document } from 'mongoose';
+import { Document, Schema } from 'mongoose';
+
 interface Expense extends Document {
   title: string;
   description: string;
   cost: number;
-  userId: string;
+  userId: Schema.Types.ObjectId;
 }
 export default Expense;
