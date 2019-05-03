@@ -15,7 +15,7 @@ router.post(
   [
     body(
       'username',
-      'Please choose another password. It should be at least 4 characters long.',
+      'Please choose another username. It should be at least 4 characters long.',
     )
       .isLength({ min: 4 })
       .isString()
