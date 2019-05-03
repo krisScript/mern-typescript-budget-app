@@ -58,3 +58,24 @@ export const deleteExpense = async (
     next(err);
   }
 };
+
+export const editExpense = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    isValidationErrorsEmpty(validationResult(req));
+    const { title, content } = req.body;
+    const { postId } = req.params;
+    const post = {
+      title,
+      content,
+    };
+    await Expense.findOneAndUpdate({ _id: postId }, post);
+    res.status(201).json({ msg: 'updated' });
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+};
