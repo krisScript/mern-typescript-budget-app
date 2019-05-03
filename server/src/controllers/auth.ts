@@ -96,10 +96,7 @@ export const requestEmailConfirmation = async (
 ): Promise<void> => {
   try {
     const { userId } = req.body;
-    console.log(userId);
-    console.log(getUserById);
     const user = await getUserById(userId);
-    console.log(user);
     const { email } = user;
     sendEmailConfirmation(userId, email);
     res.status(200);
