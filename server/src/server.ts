@@ -8,6 +8,7 @@ const mongoURI: string = `mongodb+srv://${process.env.MONGO_USER}:${
 mongoose
   .connect(mongoURI, { useNewUrlParser: true })
   .then(result => {
+    console.log('Running')
     app.listen(8080);
   })
   .catch(err => console.log(err));
