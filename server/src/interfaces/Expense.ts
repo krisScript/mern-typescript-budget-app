@@ -1,5 +1,4 @@
 import { Document, Schema } from 'mongoose';
-
 interface Expense extends Document {
   title: string;
   description: string;

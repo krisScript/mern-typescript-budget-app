@@ -6,7 +6,7 @@ import { addExpense, deleteExpense, editExpense } from '../controllers/expense';
 const router = express.Router();
 
 router.post(
-  '/add-expense',
+  '/expense',
   [
     body('title', 'Please enter title that is at lest 4 characters long.')
       .isLength({ min: 12 })
@@ -29,9 +29,9 @@ router.post(
   ],
   addExpense,
 );
-router.delete('/delete/expense/:expenseId', isAuth, deleteExpense);
-router.post(
-  '/edit-expense',
+router.delete('/expense/:expenseId', isAuth, deleteExpense);
+router.put(
+  '/expense/:expenseId',
   [
     body('title', 'Please enter title that is at lest 4 characters long.')
       .isLength({ min: 12 })

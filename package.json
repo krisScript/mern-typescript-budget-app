@@ -3,14 +3,17 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "private": true,
   "workspaces": [
     "server",
-    "client"
+    "client",
+    "common"
   ],
   "devDependencies": {
     "lerna": "^3.13.4"
   },
   "scripts": {
+    "new-version": "lerna version",
     "test": "lerna run test",
     "install-stack": "lerna run install",
     "start-dev": "lerna run start --stream"
