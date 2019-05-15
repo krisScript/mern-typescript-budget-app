@@ -2,6 +2,7 @@ import React, {
   FunctionComponent,
   useState,
   SyntheticEvent,
+  useEffect,
   useContext,
 } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
@@ -11,8 +12,16 @@ import ValidationErrorsNotification from '../ValidationErrorsNotification/Valida
 import useValidationErrors from '../../hooks/useValidationErrors/useValidationErrors';
 import RootStoreContext from '../../stores/RootStore/RootStore';
 import { observer } from 'mobx-react-lite';
-const LoginForm: FunctionComponent<RouteComponentProps> = observer(
-  ({ history }): JSX.Element => {
+
+interface MatchParams {
+  isEdit: string | undefined;
+  expenseId: string | undefined;
+}
+
+const ExpenseForm: FunctionComponent<
+  RouteComponentProps<MatchParams>
+> = observer(
+  ({ history, match }): JSX.Element => {
     const {
       validationErrorMessages,
       validationErrorParams,
@@ -21,7 +30,17 @@ const LoginForm: FunctionComponent<RouteComponentProps> = observer(
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [cost, setCost] = useState<string>('');
+    const [expenseId, setExpenseId] = useState<string | undefined>('');
     const { authStore } = useContext(RootStoreContext);
+    const [isEdit, setIsEdit] = useState<boolean>(false);
+    useEffect(() => {
+      const isEditComparison = match.params.isEdit === 'true';
+      setIsEdit(isEditComparison);
+      if (isEditComparison) {
+        setExpenseId(match.params.expenseId);
+      }
+    }, []);
+
     const submitHandler = async (e: SyntheticEvent): Promise<void> => {
       e.preventDefault();
       try {
@@ -34,11 +53,19 @@ const LoginForm: FunctionComponent<RouteComponentProps> = observer(
           description,
           cost,
         };
-        const response = await axios.post(
-          'http://localhost:8080/expense',
-          body,
-          config,
-        );
+        if (isEdit) {
+          const response = await axios.put(
+            `http://localhost:8080/expense/${expenseId}`,
+            body,
+            config,
+          );
+        } else {
+          const response = await axios.post(
+            'http://localhost:8080/expense',
+            body,
+            config,
+          );
+        }
       } catch (err) {
         if (err) {
           toggleValidationErrors(err.response.data.data);
@@ -91,4 +118,4 @@ const LoginForm: FunctionComponent<RouteComponentProps> = observer(
   },
 );
 
-export default withRouter(LoginForm);
+export default withRouter(ExpenseForm);

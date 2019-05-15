@@ -2,6 +2,13 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "lint:fix": "eslint './src/**/*.{ts,tsx}'",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@types/jest": "24.0.11",
     "@types/node": "11.13.6",
@@ -17,13 +24,6 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
     "typescript": "3.4.4"
-  },
-  "scripts": {
-    "lint:fix": "eslint './src/**/*.{ts,tsx}'",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
