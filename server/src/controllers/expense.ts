@@ -16,18 +16,20 @@ export const addExpense = async (
   try {
     isValidationErrorsEmpty(validationResult(req));
     const { title, description, cost } = req.body;
-    const { userId } = req;
-
-    let expense;
-    expense = new Expense({
-      title,
-      userId,
-      description,
-      cost,
-    });
-    await expense.save();
+    // const { userId } = req;
+    console.log('post');
+    console.log(title, description);
+    // let expense;
+    // expense = new Expense({
+    //   title,
+    //   userId,
+    //   description,
+    //   cost,
+    // });
+    // await expense.save();
     res.status(201).json({});
   } catch (err) {
+    console.log(err);
     if (!err.status) {
       err.status = 500;
     }
@@ -41,16 +43,17 @@ export const deleteExpense = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const { expenseId } = req.params;
-    const { userId } = req;
-    const expense = await Expense.findById(expenseId);
-    if (!expense) {
-      throw '';
-    }
-    if (expense.userId.toString() === userId) {
-      expense.remove();
-    }
-    res.status(200).json({ msg: 'Expense Deleted' });
+    console.log('del');
+    // const { expenseId } = req.params;
+    // const { userId } = req;
+    // const expense = await Expense.findById(expenseId);
+    // if (!expense) {
+    //   throw '';
+    // }
+    // if (expense.userId.toString() === userId) {
+    //   expense.remove();
+    // }
+    // res.status(200).json({ msg: 'Expense Deleted' });
   } catch (err) {
     if (!err.status) {
       err.status = 500;
@@ -65,15 +68,16 @@ export const editExpense = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    isValidationErrorsEmpty(validationResult(req));
-    const { title, content } = req.body;
-    const { postId } = req.params;
-    const post = {
-      title,
-      content,
-    };
-    await Expense.findOneAndUpdate({ _id: postId }, post);
-    res.status(201).json({ msg: 'updated' });
+    console.log('put');
+    // isValidationErrorsEmpty(validationResult(req));
+    // const { title, content } = req.body;
+    // const { postId } = req.params;
+    // const post = {
+    //   title,
+    //   content,
+    // };
+    // await Expense.findOneAndUpdate({ _id: postId }, post);
+    // res.status(201).json({ msg: 'updated' });
   } catch (err) {
     next(err);
     console.log(err);

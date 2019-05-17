@@ -9,16 +9,14 @@ router.post(
   '/expense',
   [
     body('title', 'Please enter title that is at lest 4 characters long.')
-      .isLength({ min: 12 })
-      .isAlphanumeric()
+      .isLength({ min: 4 })
       .trim()
       .escape(),
     body(
       'description',
       'Please enter description that is at lest 20 characters long.',
     )
-      .isLength({ min: 20 })
-      .isAlphanumeric()
+      .isLength({ min: 4 })
       .trim()
       .escape(),
     body('cost', 'Please enter valid number')
@@ -27,6 +25,7 @@ router.post(
       .trim()
       .escape(),
   ],
+  isAuth,
   addExpense,
 );
 router.delete('/expense/:expenseId', isAuth, deleteExpense);
@@ -34,7 +33,7 @@ router.put(
   '/expense/:expenseId',
   [
     body('title', 'Please enter title that is at lest 4 characters long.')
-      .isLength({ min: 12 })
+      .isLength({ min: 4 })
       .isAlphanumeric()
       .trim()
       .escape(),
@@ -42,7 +41,7 @@ router.put(
       'description',
       'Please enter description that is at lest 20 characters long.',
     )
-      .isLength({ min: 20 })
+      .isLength({ min: 4 })
       .isAlphanumeric()
       .trim()
       .escape(),

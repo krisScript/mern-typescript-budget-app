@@ -16,7 +16,7 @@ const Navbar: FunctionComponent<NavBarProps> = observer(
     return (
       <nav className="navbar ">
         <div className="navbar-menu is-active">
-          <NavLink to="/add-expense" className="navbar-item">
+          <NavLink to="/new/expense" className="navbar-item">
             Add Expense
           </NavLink>
           <NavLink to="/expenses" className="navbar-item">

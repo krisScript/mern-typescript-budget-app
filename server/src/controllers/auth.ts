@@ -14,6 +14,7 @@ import getUserByEmail from '../services/getUserByEmail';
 import comparePassword from '../services/comparePassword';
 import checkUserConfirmation from '../services/checkUserConfirmation';
 import signLoginToken from '../services/signLoginToken';
+
 export const signUp = async (
   req: Request,
   res: Response,
@@ -40,6 +41,7 @@ export const login = async (
 ): Promise<void> => {
   try {
     const { email, password } = req.body;
+    console.log(email);
     const user = await getUserByEmail(email);
     comparePassword(password, user.password);
     await checkUserConfirmation(user);

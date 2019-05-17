@@ -97,6 +97,8 @@ router.post(
   ],
   login,
 );
+
+
 router.post('/confirmation/:token', confirmEmail);
 router.post('/request-confirmation', requestEmailConfirmation);
 export default router;

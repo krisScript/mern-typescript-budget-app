@@ -68,7 +68,8 @@ const ExpenseForm: FunctionComponent<
         }
       } catch (err) {
         if (err) {
-          toggleValidationErrors(err.response.data.data);
+          console.log(err.data);
+          // toggleValidationErrors(err.response.data.data);
         }
       }
     };

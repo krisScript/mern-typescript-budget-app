@@ -10,7 +10,7 @@ const SignUpForm = lazy(() => import('../SignUpForm/SignUpForm'));
 const LoginForm = lazy(() => import('../LoginForm/LoginForm'));
 const HomePage = lazy(() => import('../HomePage/HomePage'));
 const NotFoundPage = lazy(() => import('../NotFoundPage/NotFoundPage'));
-
+const ExpenseForm = lazy(() => import('../ExpenseForm/ExpenseForm'));
 const EmailConfirmationPage = lazy(() =>
   import('../EmailConfirmationPage/EmailConfirmationPage'),
 );
@@ -27,7 +27,7 @@ const Router: FunctionComponent = observer(
           />
           <Modal />
           <Switch>
-            <ProtectedRoute Component={LoginForm} path={'/protected'} />
+            <ProtectedRoute Component={ExpenseForm} path={'/new/expense'} />
             <Route
               path="/login"
               render={(props): JSX.Element => (

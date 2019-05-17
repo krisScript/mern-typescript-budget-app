@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import mongoose, { Error } from 'mongoose';
 import authRoutes from './routes/auth';
+import expenseRoutes from './routes/expense';
 import helmet from 'helmet';
 import rateLimiterRedisMiddleware from './middleware/rateLimiterRedisMiddleware';
 const app = express();
@@ -25,6 +26,7 @@ app.use(bodyParser.json()),
     },
   ),
   app.use('/auth', authRoutes);
+app.use(expenseRoutes);
 
 app.use(
   (error: any, req: Request, res: Response, next: NextFunction): void => {
