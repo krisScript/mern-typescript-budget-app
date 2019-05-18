@@ -53,23 +53,24 @@ const ExpenseForm: FunctionComponent<
           description,
           cost,
         };
+        let response;
         if (isEdit) {
-          const response = await axios.put(
+          response = await axios.put(
             `http://localhost:8080/expense/${expenseId}`,
             body,
             config,
           );
         } else {
-          const response = await axios.post(
+          response = await axios.post(
             'http://localhost:8080/expense',
             body,
             config,
           );
         }
+        console.log(response.data);
       } catch (err) {
         if (err) {
-          console.log(err.data);
-          // toggleValidationErrors(err.response.data.data);
+          toggleValidationErrors(err.response.data.data);
         }
       }
     };

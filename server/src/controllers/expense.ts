@@ -16,18 +16,17 @@ export const addExpense = async (
   try {
     isValidationErrorsEmpty(validationResult(req));
     const { title, description, cost } = req.body;
-    // const { userId } = req;
+    const { userId } = req;
     console.log('post');
-    console.log(title, description);
-    // let expense;
-    // expense = new Expense({
-    //   title,
-    //   userId,
-    //   description,
-    //   cost,
-    // });
-    // await expense.save();
-    res.status(201).json({});
+    console.log(title, description, userId);
+    const expense = new Expense({
+      title,
+      userId,
+      description,
+      cost: Number(cost),
+    });
+    await expense.save();
+    res.status(201).json({ expenseId: expense._id });
   } catch (err) {
     console.log(err);
     if (!err.status) {
