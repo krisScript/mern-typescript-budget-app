@@ -2,7 +2,12 @@ import express from 'express';
 import { body } from 'express-validator/check';
 import User from '../models/User';
 import isAuth from '../middleware/isAuth';
-import { addExpense, deleteExpense, editExpense } from '../controllers/expense';
+import {
+  addExpense,
+  deleteExpense,
+  editExpense,
+  getExpenses,
+} from '../controllers/expense';
 const router = express.Router();
 
 router.post(
@@ -53,4 +58,6 @@ router.put(
   ],
   editExpense,
 );
+
+router.get('/expenses', isAuth, getExpenses);
 export default router;

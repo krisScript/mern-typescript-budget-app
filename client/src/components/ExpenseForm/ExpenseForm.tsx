@@ -14,7 +14,6 @@ import RootStoreContext from '../../stores/RootStore/RootStore';
 import { observer } from 'mobx-react-lite';
 
 interface MatchParams {
-  isEdit: string | undefined;
   expenseId: string | undefined;
 }
 
@@ -32,13 +31,11 @@ const ExpenseForm: FunctionComponent<
     const [cost, setCost] = useState<string>('');
     const [expenseId, setExpenseId] = useState<string | undefined>('');
     const { authStore } = useContext(RootStoreContext);
-    const [isEdit, setIsEdit] = useState<boolean>(false);
     useEffect(() => {
-      const isEditComparison = match.params.isEdit === 'true';
-      setIsEdit(isEditComparison);
-      if (isEditComparison) {
-        setExpenseId(match.params.expenseId);
-      }
+      console.log(match);
+      // if () {
+      //   setExpenseId(match.params.expenseId);
+      // }
     }, []);
 
     const submitHandler = async (e: SyntheticEvent): Promise<void> => {
@@ -54,7 +51,7 @@ const ExpenseForm: FunctionComponent<
           cost,
         };
         let response;
-        if (isEdit) {
+        if ('') {
           response = await axios.put(
             `http://localhost:8080/expense/${expenseId}`,
             body,
@@ -76,8 +73,6 @@ const ExpenseForm: FunctionComponent<
     };
     return (
       <div className="columns">
-        <div className="column is-one-third" />
-
         <div className="column is-one-third">
           <ValidationErrorsNotification
             validationErrorMessages={validationErrorMessages}

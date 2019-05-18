@@ -11,36 +11,42 @@ import { Link } from 'react-router-dom';
 interface ExpenseProps {
   expense: ExpenseType;
 }
-const ExpenseProps: FunctionComponent<ExpenseProps> = ({
-  expense,
-}): JSX.Element => {
+const Expense: FunctionComponent<ExpenseProps> = ({ expense }): JSX.Element => {
   return (
-    <div className="card">
-      <header className="card-header">
-        <p className="card-header-title">{expense.title}</p>
-        <a href="#" className="card-header-icon" aria-label="more options">
-          <span className="icon">
-            <i className="fas fa-angle-down" aria-hidden="true" />
-          </span>
-        </a>
-      </header>
-      <div className="card-content">
-        <div className="content">{expense.description}</div>
+    <div className="column is-one-quarter">
+      <div className="card">
+        <header className="card-header">
+          <p className="card-header-title">{expense.title}</p>
+          <a href="#" className="card-header-icon" aria-label="more options">
+            <span className="icon">
+              <i className="fas fa-angle-down" aria-hidden="true" />
+            </span>
+          </a>
+        </header>
+        <div className="card-content">
+          <div className="content">{expense.description}</div>
+        </div>
+        <footer className="card-footer">
+          <a href="#" className="card-footer-item">
+            {expense.cost}
+          </a>
+          <Link
+            to={{
+              pathname: '/edit/expense',
+              state: { expenseId: expense._id },
+            }}
+            className="card-footer-item"
+          >
+            Edit
+          </Link>
+          >
+          <a href="#" className="card-footer-item">
+            Delete
+          </a>
+        </footer>
       </div>
-      <footer className="card-footer">
-        <a href="#" className="card-footer-item">
-          {expense.cost}
-        </a>
-        <Link to={''} className="card-footer-item">
-          Edit
-        </Link>
-        >
-        <a href="#" className="card-footer-item">
-          Delete
-        </a>
-      </footer>
     </div>
   );
 };
 
-export default ExpenseProps;
+export default Expense;

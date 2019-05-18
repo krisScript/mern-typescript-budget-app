@@ -11,6 +11,9 @@ const LoginForm = lazy(() => import('../LoginForm/LoginForm'));
 const HomePage = lazy(() => import('../HomePage/HomePage'));
 const NotFoundPage = lazy(() => import('../NotFoundPage/NotFoundPage'));
 const ExpenseForm = lazy(() => import('../ExpenseForm/ExpenseForm'));
+const ExpensesContainer = lazy(() =>
+  import('../ExpensesContainer/ExpensesContainer'),
+);
 const EmailConfirmationPage = lazy(() =>
   import('../EmailConfirmationPage/EmailConfirmationPage'),
 );
@@ -28,6 +31,8 @@ const Router: FunctionComponent = observer(
           <Modal />
           <Switch>
             <ProtectedRoute Component={ExpenseForm} path={'/new/expense'} />
+            <ProtectedRoute Component={ExpenseForm} path={'/edit/expense'} />
+            <ProtectedRoute Component={ExpensesContainer} path={'/expenses'} />
             <Route
               path="/login"
               render={(props): JSX.Element => (

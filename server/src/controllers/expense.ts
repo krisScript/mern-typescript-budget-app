@@ -82,3 +82,20 @@ export const editExpense = async (
     console.log(err);
   }
 };
+
+export const getExpenses = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    isValidationErrorsEmpty(validationResult(req));
+    const { userId } = req;
+    console.log(userId);
+    const expenses = await Expense.find({ userId });
+    res.status(201).json({ expenses });
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+};
