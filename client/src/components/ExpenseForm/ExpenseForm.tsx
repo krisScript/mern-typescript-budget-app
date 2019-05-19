@@ -6,6 +6,7 @@ import React, {
   useContext,
 } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import Expense from '../../interfaces/Expense';
 import axios from 'axios';
 import Input from '../Input/Input';
 import ValidationErrorsNotification from '../ValidationErrorsNotification/ValidationErrorsNotification';
@@ -14,7 +15,7 @@ import RootStoreContext from '../../stores/RootStore/RootStore';
 import { observer } from 'mobx-react-lite';
 
 interface MatchParams {
-  expenseId: string | undefined;
+  expense: string;
 }
 
 const ExpenseForm: FunctionComponent<
@@ -30,12 +31,18 @@ const ExpenseForm: FunctionComponent<
     const [description, setDescription] = useState<string>('');
     const [cost, setCost] = useState<string>('');
     const [expenseId, setExpenseId] = useState<string | undefined>('');
+    const [userId, setUserId] = useState<string | undefined>('');
     const { authStore } = useContext(RootStoreContext);
     useEffect(() => {
-      console.log(match);
-      // if () {
-      //   setExpenseId(match.params.expenseId);
-      // }
+      if (match.path === '/edit/expense') {
+        const expense: Expense = JSON.parse(history.location.state.expense);
+
+        setTitle(expense.title);
+        setDescription(expense.description);
+        setCost(expense.cost.toString());
+        setExpenseId(expense._id);
+        setUserId(expense.userId);
+      }
     }, []);
 
     const submitHandler = async (e: SyntheticEvent): Promise<void> => {
@@ -45,13 +52,13 @@ const ExpenseForm: FunctionComponent<
         const config = {
           headers: { Authorization: 'bearer ' + token },
         };
-        const body = {
+        let body = {
           title,
           description,
           cost,
         };
         let response;
-        if ('') {
+        if (match.path === '/edit/expense') {
           response = await axios.put(
             `http://localhost:8080/expense/${expenseId}`,
             body,
@@ -64,11 +71,11 @@ const ExpenseForm: FunctionComponent<
             config,
           );
         }
-        console.log(response.data);
-      } catch (err) {
-        if (err) {
-          toggleValidationErrors(err.response.data.data);
+        if (response.status === 200 || response.status === 201) {
+          history.replace('/expenses');
         }
+      } catch (err) {
+        toggleValidationErrors(err.response.data.data);
       }
     };
     return (
@@ -104,7 +111,11 @@ const ExpenseForm: FunctionComponent<
             />
             <div className="field is-grouped">
               <div className="control">
-                <button className="button is-link">Add Expense</button>
+                <button className="button is-link">
+                  {match.path === '/edit/expense'
+                    ? 'Edit Expense'
+                    : 'Add Expense'}
+                </button>
               </div>
             </div>
           </form>

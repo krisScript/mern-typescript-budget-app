@@ -29,10 +29,20 @@ const ExpensesContainer: FunctionComponent = observer(
           console.log(err);
         });
     }, []);
+    const deleteExpenseComponentHandler = (expenseId: string): void => {
+      const editedExpenses = expenses.filter(
+        expense => expense._id !== expenseId,
+      );
+      setExpenses(editedExpenses);
+    };
     return (
       <div className="section columns">
         {expenses.map(expense => (
-          <Expense key={expense._id} expense={expense} />
+          <Expense
+            key={expense._id}
+            expense={expense}
+            deleteExpenseComponentHandler={deleteExpenseComponentHandler}
+          />
         ))}
       </div>
     );

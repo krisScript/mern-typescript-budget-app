@@ -46,15 +46,14 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "express-validator": "^5.3.1",
-    "grant": "^4.5.1",
+    "global": "^4.3.2",
     "helmet": "^3.16.0",
     "ioredis": "^4.9.0",
     "jsonwebtoken": "^8.5.1",
+    "kareem": "^2.3.0",
     "mongoose": "^5.5.2",
     "nodemailer": "^6.1.1",
-    "rate-limiter-flexible": "^1.0.1"
-  },
-  "resolutions": {
-    "ts-node": "8.0.2"
+    "rate-limiter-flexible": "^1.0.1",
+    "redis-commander": "^0.6.4"
   }
 }

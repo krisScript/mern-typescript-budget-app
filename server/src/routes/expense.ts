@@ -39,7 +39,6 @@ router.put(
   [
     body('title', 'Please enter title that is at lest 4 characters long.')
       .isLength({ min: 4 })
-      .isAlphanumeric()
       .trim()
       .escape(),
     body(
@@ -47,7 +46,6 @@ router.put(
       'Please enter description that is at lest 20 characters long.',
     )
       .isLength({ min: 4 })
-      .isAlphanumeric()
       .trim()
       .escape(),
     body('cost', 'Please enter valid number')

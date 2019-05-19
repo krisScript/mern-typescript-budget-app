@@ -1,6 +1,5 @@
 import { verify } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-import DecodedToken from '../interfaces/DecodedToken';
 const secret: any = process.env.SECRET;
 const isAuth = (req: Request, res: Response, next: NextFunction): void => {
   const authHeader = req.get('Authorization');
