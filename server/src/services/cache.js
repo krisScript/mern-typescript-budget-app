@@ -1,12 +1,12 @@
 import { Query } from 'mongoose';
 import Redis from 'ioredis';
 
-const redisUrl = 'redis://127.0.0.1:6379';
+const redisUrl = process.env.REDIS_URL || '';
 const client = new Redis(redisUrl);
 
 const { exec } = Query.prototype;
 
-//ts-node currently ignores mongoose declaration files
+//ts-node ignores my mongoose declaration file, so im using js file instead until i fix the issue
 
 Query.prototype.cache = function cache(options = {}) {
   this.useCache = true;

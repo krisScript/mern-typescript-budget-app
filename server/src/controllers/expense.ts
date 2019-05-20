@@ -91,19 +91,11 @@ export const getExpenses = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    // const redisUrl = 1231231;
-    // const redis = new Redis(redisUrl);
     isValidationErrorsEmpty(validationResult(req));
     const { userId } = req;
-    // const cachedExpenses = await redis.get(userId);
-    // if (cachedExpenses) {
-    //   console.log('serving from cache');
-    //   return res.status(200).json({ expenses: JSON.parse(cachedExpenses) });
-    // }
-    const expenses = await Expense.find({ userId });
-    // console.log('serving from mongodb');
+    //@ts-ignore
+    const expenses = await Expense.find({ userId }).cache({ key: userId });
     res.status(200).json({ expenses });
-    // redis.set(userId, JSON.stringify(expenses));
   } catch (err) {
     next(err);
     console.log(err);

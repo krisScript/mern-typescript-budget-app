@@ -2,6 +2,7 @@ import express from 'express';
 import { body } from 'express-validator/check';
 import User from '../models/User';
 import isAuth from '../middleware/isAuth';
+import clearCacheByUserId from '../middleware/clearCacheByUserId';
 import {
   addExpense,
   deleteExpense,
@@ -31,9 +32,10 @@ router.post(
       .escape(),
   ],
   isAuth,
+  clearCacheByUserId,
   addExpense,
 );
-router.delete('/expense/:expenseId', isAuth, deleteExpense);
+router.delete('/expense/:expenseId', isAuth, clearCacheByUserId, deleteExpense);
 router.put(
   '/expense/:expenseId',
   [
@@ -54,6 +56,8 @@ router.put(
       .trim()
       .escape(),
   ],
+  isAuth,
+  clearCacheByUserId,
   editExpense,
 );
 

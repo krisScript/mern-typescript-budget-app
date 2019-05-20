@@ -6,6 +6,7 @@ import authRoutes from './routes/auth';
 import expenseRoutes from './routes/expense';
 import helmet from 'helmet';
 import rateLimiterRedisMiddleware from './middleware/rateLimiterRedisMiddleware';
+import cache from './services/cache';
 const app = express();
 
 app.use(helmet());
